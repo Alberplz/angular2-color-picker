@@ -1,0 +1,6 @@
+node_modules/*
+nbproject/*
+typings/*
+npm-debug.log
+app/color-picker/.sass-cache/*
+create-dist.bat

@@ -1,0 +1,42 @@
+<div class="color-picker" *ngIf="show" [style.top]="top" [style.left]="left" [style.position]="position">
+    <div class="arrow arrow-{{cpPosition}}"></div>    
+
+    <div [slider] [style.background-color]="hueSliderColor" [rgX]="1" [rgY]="1" (newValue)="setSaturationAndBrightness($event)" class="saturation-lightness">
+        <div [style.left]="slider.s" [style.top]="slider.v" class="cursor"></div>
+    </div>
+
+    <div [slider] [rgX]="1" (newValue)="setHue($event)" class="hue">
+        <div [style.left]="slider.h" class="cursor"></div>
+    </div>
+
+    <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" class="alpha">
+        <div [style.left]="slider.a" class="cursor"></div>
+    </div>
+
+    <div class="selected-color-background"></div>
+    <div [style.background-color]="outputColor" class="selected-color"></div>
+
+    <div [hidden]="format!=2" class="hsla-text">
+        <input [text] type="number" pattern="[0-9]*" min="0" max="360" [rg]="360" (action)="setHue($event)" [value]="hslaText.h"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (action)="setSaturation($event)" [value]="hslaText.s"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (action)="setLightness($event)" [value]="hslaText.l"/>
+        <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (action)="setAlpha($event)" [value]="hslaText.a"/>
+        <div>H</div><div>S</div><div>L</div><div>A</div>
+    </div>
+
+    <div [hidden]="format!=1" class="rgba-text">
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (action)="setR($event)" [value]="rgbaText.r"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (action)="setG($event)" [value]="rgbaText.g"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (action)="setB($event)" [value]="rgbaText.b"/>
+        <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (action)="setAlpha($event)" [value]="rgbaText.a"/>
+        <div>R</div><div>G</div><div>B</div><div>A</div>
+    </div>
+
+    <div [hidden]="format!=0" class="hex-text">
+        <input [text] (action)="setColorFromHex($event)" [value]="hexText"/>
+        <div>Hex</div>
+    </div>
+
+    <div (click)="formatPolicy()" class="type-policy"></div>
+
+</div>

@@ -1,0 +1,130 @@
+<div class="container">
+    <h1>Angular2 Color Picker Directive</h1>
+    <h4>A Color Picker Directive for Angular 2 with no dependencies.</h4>
+    <h4><b>by Alberto Pujante</b></h4>
+    <a class="btn btn-primary btn-lg" href="https://github.com/Alberplz/angular2-color-picker">View on Github</a>
+
+    <h1>Angular2 Color Picker</h1>
+    <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input [(colorPicker)]="color" [style.background]="color"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Usage:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input [(colorPicker)]="color2" 
+                [style.background]="color2" 
+                [value]="color2"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Show text input color:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input [(colorPicker)]="color3" 
+                [style.background]="color3" 
+                [value]="color3"                
+                [cpOutputFormat]="'rgba'"/><br><br>
+            <input [(colorPicker)]="color4" 
+                [style.background]="color4" 
+                [value]="color4"                
+                [cpOutputFormat]="'hsla'"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Output format:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpOutputFormat]="'rgba'"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
+    <div class="row" > 
+        <div class="col-md-5" >
+            <input [(colorPicker)]="color5" 
+                [style.background]="color5"                   
+                [value]="color5"
+                [cpPosition]="'bottom'"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Changing background color and input value:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpPosition]="'bottom'"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
+    <div class="row" > 
+        <div class="col-md-5" >
+            <span id="changeme" [(colorPicker)]="color6" 
+                  [style.color]="color6"
+                  [cpPosition]="'bottom'">Change me!</span>
+        </div>   
+        <div class="col-md-7">  
+            <p>Use it with others html elements:</p>
+            <pre>
+&lt;span [(colorPicker)]="color" 
+      [cpPosition]="'bottom'"
+      [style.color]="color">Change me!&lt;/span&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Options</th>
+                        <th>Values (default values in bold)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>cpOutputFormat</td>
+                        <td>
+                            <b>'hex'</b>, 'rgba', 'hsla'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpPosition</td>
+                        <td>
+                            <b>'right'</b>, 'left', 'top', 'bottom'
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <footer class="footer">&copy; Alberto Pujante 2016 | <a href="https://github.com/Alberplz/angular2-color-picker">Angular2 Color Picker</a></footer>
+    <br>
+
+</div>

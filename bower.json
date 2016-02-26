@@ -1,0 +1,11 @@
+{
+  "name": "angular2-color-picker",
+  "authors": [
+    "Alberto Pujante <alberplz@gmail.com>"
+  ],
+  "description": "Color Picker Directive for Angular 2 with no dependencies required",
+  "ignore": [
+    "node_modules"
+  ],
+  "licence": "MIT"
+}
