@@ -5,6 +5,9 @@ This is a Color Picker Directive for Angular 2 (now in beta). This version is co
 # Demo page
 http://alberplz.github.io/angular2-color-picker/index.html
 
+# Intallation
+bower install angular2-color-picker
+
 # Usage
 * In your view:
 ```html

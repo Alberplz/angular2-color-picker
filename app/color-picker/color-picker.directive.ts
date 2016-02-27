@@ -1,4 +1,4 @@
-import {Component, DynamicComponentLoader, OnChanges, Directive, Input, Output, ElementRef, EventEmitter, OnInit} from 'angular2/core';
+import {Component, DynamicComponentLoader, Directive, Input, Output, ElementRef, EventEmitter, OnInit} from 'angular2/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 
@@ -6,7 +6,7 @@ import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
     selector: '[colorPicker]',
     host: {
         '(input)': 'changeInput($event.target.value)',
-        '(click)': 'onClick($event)'
+        '(click)': 'onClick()'
     }
 })
 export class ColorPickerDirective implements OnInit {
@@ -29,14 +29,11 @@ export class ColorPickerDirective implements OnInit {
         }
     }
 
-    onClick(event: any) {
+    onClick() {
         if (!this.created) {
             this.created = true;
             this.dcl.loadNextToLocation(DialogComponent, this.el)
                 .then((res) => {
-                    //res.instance.setDirectiveInstance(this);
-                    //res.instance.setInitialColor(this.colorPicker);
-                    //res.instance.setDirectiveElementRef(this.el)
                     res.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpOutputFormat, this.cpCancelButton);
                     this.dialog = res.instance;
                 });
@@ -64,18 +61,17 @@ export class ColorPickerDirective implements OnInit {
 })
 export class TextDirective {
     @Output('action') action = new EventEmitter<any>();
-    @Input('text') text: any;
-    @Input('rg') rg: any;
+    @Input('text') text:any;
+    @Input('rg') rg: number;
 
-    constructor(private el: ElementRef) { }
+    constructor() { }
 
     changeInput(value: string) {
         if (this.rg === undefined) {
             this.action.emit(value);
         } else {
             let numeric = parseFloat(value)
-            //this.el.nativeElement.value = Math.min(numeric, this.rg);  Math.min(numeric, this.rg)          
-            if (!isNaN(numeric) && value.slice(-1) !== '.' && numeric >= 0 && numeric <= this.rg) {
+            if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
                 this.action.emit({ v: numeric, rg: this.rg });
             }
         }
@@ -85,21 +81,23 @@ export class TextDirective {
 @Directive({
     selector: '[slider]',
     host: {
-        '(mousedown)': 'onMousedown($event)'
+        '(mousedown)': 'start($event)',
+        '(touchstart)': 'start($event)'
     }
 })
 export class SliderDirective {
     @Output('newValue') newValue = new EventEmitter<any>();
     @Input('slider') slider: string;
-    @Input('rgX') rgX: any;
-    @Input('rgY') rgY: any;
-    private listenerMousemove: any;
-    private listenerMouseup: any;
+    @Input('rgX') rgX: number;
+    @Input('rgY') rgY: number;
+    private listenerMove: any;
+    private listenerStop: any;
 
     constructor(private el: ElementRef) {
-        this.listenerMousemove = (event: Event) => { this.setCursor(event) };
-        this.listenerMouseup = (event: Event) => { this.onMouseUp(event) };
+        this.listenerMove = (event: Event) => { this.move(event) };
+        this.listenerStop = () => { this.stop() };
     }
+
     setCursor(event: Event) {
         let maxTop = this.el.nativeElement.offsetHeight;
         let maxLeft = this.el.nativeElement.offsetWidth;
@@ -114,21 +112,32 @@ export class SliderDirective {
             this.newValue.emit({ v: x / maxLeft, rg: this.rgX });
         }
     }
-    getX(event: Event) {
-        return event.pageX - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
-    }
-    getY(event: Event) {
-        return event.pageY - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
-    }
-    onMousedown(event: Event) {
+    
+    move(event: Event) {
         event.preventDefault();
-        document.addEventListener('mousemove', this.listenerMousemove);
-        document.addEventListener('mouseup', this.listenerMouseup);
         this.setCursor(event);
     }
-    onMouseUp(event: Event) {
-        document.removeEventListener('mousemove', this.listenerMousemove);
-        document.removeEventListener('mouseup', this.listenerMouseup);
+
+    start(event: Event) {
+        this.setCursor(event);
+        document.addEventListener('mousemove', this.listenerMove);
+        document.addEventListener('touchmove', this.listenerMove);
+        document.addEventListener('mouseup', this.listenerStop);
+        document.addEventListener('touchend', this.listenerStop);        
+    }
+
+    stop() {
+        document.removeEventListener('mousemove', this.listenerMove);
+        document.removeEventListener('touchmove', this.listenerMove);
+        document.removeEventListener('mouseup', this.listenerStop);
+        document.removeEventListener('touchend', this.listenerStop);
+    }
+
+    getX(event: Event) {
+        return (event.pageX !== undefined ? event.pageX : event.touches[0].pageX) - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
+    }
+    getY(event: Event) {
+        return (event.pageY !== undefined ? event.pageY : event.touches[0].pageY) - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
     }
 }
 
@@ -150,30 +159,31 @@ export class DialogComponent implements OnInit {
     private sliderDimMax: SliderDimension;
     private format: number;
     private show: boolean;
-    private listenerClick: any;
     private top: string;
     private left: string;
     private position: string;
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
-
+    
+    private listenerMouseDown: any;
+    private listenerResize: any;
+    
     private cpPosition: string;
     private cpOutputFormat: string;
     private cpCancelButton: string;
 
+    private dialogHeight: number;
+    private dialogWidth: number;
+    private dialogArrowSize: number;
+    private dialogArrowShift: number;
 
-    constructor(private el: ElementRef, private service: ColorPickerService) { }
-
-    /*setDirectiveInstance(instance: any) {
-        this.directiveInstance = instance;
+    constructor(private el: ElementRef, private service: ColorPickerService) {
+        this.dialogHeight = 290;
+        this.dialogWidth = 232;
+        this.dialogArrowSize = 10;
+        this.dialogArrowShift = 15;
     }
-    setInitialColor(color: any) {
-        this.initialColor = color;
-    }
-    setDirectiveElementRef(elementRef: ElementRef) {
-        this.directiveElementRef = elementRef;
-    }*/
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpOutputFormat: string, cpCancelButton: string) {
         this.directiveInstance = instance;
@@ -185,7 +195,6 @@ export class DialogComponent implements OnInit {
     }
 
     ngOnInit() {
-
         let hsva = this.service.stringToHsva(this.initialColor);
         if (hsva !== null) {
             this.hsva = hsva;
@@ -203,9 +212,42 @@ export class DialogComponent implements OnInit {
             this.format = 0;
         }
 
-        this.listenerClick = (event: Event) => { this.closeColorPicker(event) };
+        this.listenerMouseDown = (event: Event) => { this.onMouseDown(event) };
+        this.listenerResize = () => { this.onResize() };
         this.update();
+        this.openColorPicker();
+    }
 
+    openColorPicker() {
+        if (!this.show) {
+            this.setDialogPosition();
+            this.show = true;
+            document.addEventListener('mousedown', this.listenerMouseDown);
+            window.addEventListener('resize', this.listenerResize);
+        }
+    }
+
+    onMouseDown(event: Event) {
+        if (!this.service.isDescendant(this.el.nativeElement, event.target)
+            && event.target != this.directiveElementRef.nativeElement) {
+            this.closeColorPicker();
+        }
+
+    }
+
+    closeColorPicker() {
+        this.show = false;
+        document.removeEventListener('mouseup', this.listenerMouseDown);
+        window.removeEventListener('resize', this.listenerResize);
+    }
+
+    onResize() {
+        if (this.position === 'fixed') {
+            this.setDialogPosition();
+        }
+    }
+
+    setDialogPosition() {
         var node = this.directiveElementRef.nativeElement;
         var position = 'static';
         let parentNode = null;
@@ -222,46 +264,30 @@ export class DialogComponent implements OnInit {
 
         let top, left;
         if (position !== 'fixed') {
-            var boxDirentive = this.service.createBox(this.directiveElementRef.nativeElement, true);
+            var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, true);
             if (parentNode === null) { parentNode = node }
             let boxParent = this.service.createBox(parentNode, true);
-            top = boxDirentive.top - boxParent.top;
-            left = boxDirentive.left - boxParent.left;
+            top = boxDirective.top - boxParent.top;
+            left = boxDirective.left - boxParent.left;
         } else {
-            var boxDirentive = this.service.createBox(this.directiveElementRef.nativeElement, false);
-            top = boxDirentive.top;
-            left = boxDirentive.left;
+            var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, false);
+            top = boxDirective.top;
+            left = boxDirective.left;
             this.position = 'fixed';
         }
         if (this.cpPosition === 'left') {
-            left -= 252;
+            top += boxDirective.height / 2 - this.dialogArrowShift;
+            left -= this.dialogWidth + this.dialogArrowSize;
         } else if (this.cpPosition === 'top') {
-            top -= 300;
-            left -= 10;
+            top -= this.dialogHeight + this.dialogArrowSize;
         } else if (this.cpPosition === 'bottom') {
-            top += boxDirentive.height + 10;
-            left -= 10;
+            top += boxDirective.height + this.dialogArrowSize;
         } else {
-            left += boxDirentive.width;
+            top += boxDirective.height / 2 - this.dialogArrowShift;
+            left += boxDirective.width + this.dialogArrowSize;
         }
         this.top = top + 'px';
         this.left = left + 'px';
-
-        this.openColorPicker();
-    }
-
-    openColorPicker() {
-        if (!this.show) {
-            this.show = true;
-            document.addEventListener('mousedown', this.listenerClick);
-        }
-    }
-
-    closeColorPicker(event: Event) {
-        if (!this.service.isDescendant(this.el.nativeElement, event.target) && event.target != this.directiveElementRef.nativeElement) {
-            this.show = false;
-            document.removeEventListener('mousedown', this.listenerClick);
-        }
     }
 
     setSaturation(val: { v: number, rg: number }) {
@@ -331,13 +357,11 @@ export class DialogComponent implements OnInit {
 
     update() {
         let hsla = this.service.hsva2hsla(this.hsva);
-        this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
-
         let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
         let hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new Hsva(this.hsva.h, 1, 1, 1)));
 
+        this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
         this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, this.service.round(rgba.a, 2));
-
         this.hexText = this.service.hexText(rgba);
 
         this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';

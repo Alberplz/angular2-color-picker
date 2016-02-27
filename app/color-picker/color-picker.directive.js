@@ -40,15 +40,12 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                         this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat));
                     }
                 };
-                ColorPickerDirective.prototype.onClick = function (event) {
+                ColorPickerDirective.prototype.onClick = function () {
                     var _this = this;
                     if (!this.created) {
                         this.created = true;
                         this.dcl.loadNextToLocation(DialogComponent, this.el)
                             .then(function (res) {
-                            //res.instance.setDirectiveInstance(this);
-                            //res.instance.setInitialColor(this.colorPicker);
-                            //res.instance.setDirectiveElementRef(this.el)
                             res.instance.setDialog(_this, _this.el, _this.colorPicker, _this.cpPosition, _this.cpOutputFormat, _this.cpCancelButton);
                             _this.dialog = res.instance;
                         });
@@ -89,7 +86,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                         selector: '[colorPicker]',
                         host: {
                             '(input)': 'changeInput($event.target.value)',
-                            '(click)': 'onClick($event)'
+                            '(click)': 'onClick()'
                         }
                     }), 
                     __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef, color_picker_service_1.ColorPickerService])
@@ -98,8 +95,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
             }());
             exports_1("ColorPickerDirective", ColorPickerDirective);
             TextDirective = (function () {
-                function TextDirective(el) {
-                    this.el = el;
+                function TextDirective() {
                     this.action = new core_1.EventEmitter();
                 }
                 TextDirective.prototype.changeInput = function (value) {
@@ -108,8 +104,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     }
                     else {
                         var numeric = parseFloat(value);
-                        //this.el.nativeElement.value = Math.min(numeric, this.rg);  Math.min(numeric, this.rg)          
-                        if (!isNaN(numeric) && value.slice(-1) !== '.' && numeric >= 0 && numeric <= this.rg) {
+                        if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
                             this.action.emit({ v: numeric, rg: this.rg });
                         }
                     }
@@ -124,7 +119,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                 ], TextDirective.prototype, "text", void 0);
                 __decorate([
                     core_1.Input('rg'), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', Number)
                 ], TextDirective.prototype, "rg", void 0);
                 TextDirective = __decorate([
                     core_1.Directive({
@@ -133,7 +128,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                             '(input)': 'changeInput($event.target.value)'
                         }
                     }), 
-                    __metadata('design:paramtypes', [core_1.ElementRef])
+                    __metadata('design:paramtypes', [])
                 ], TextDirective);
                 return TextDirective;
             }());
@@ -143,8 +138,8 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     var _this = this;
                     this.el = el;
                     this.newValue = new core_1.EventEmitter();
-                    this.listenerMousemove = function (event) { _this.setCursor(event); };
-                    this.listenerMouseup = function (event) { _this.onMouseUp(event); };
+                    this.listenerMove = function (event) { _this.move(event); };
+                    this.listenerStop = function () { _this.stop(); };
                 }
                 SliderDirective.prototype.setCursor = function (event) {
                     var maxTop = this.el.nativeElement.offsetHeight;
@@ -161,21 +156,28 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                         this.newValue.emit({ v: x / maxLeft, rg: this.rgX });
                     }
                 };
-                SliderDirective.prototype.getX = function (event) {
-                    return event.pageX - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
-                };
-                SliderDirective.prototype.getY = function (event) {
-                    return event.pageY - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
-                };
-                SliderDirective.prototype.onMousedown = function (event) {
+                SliderDirective.prototype.move = function (event) {
                     event.preventDefault();
-                    document.addEventListener('mousemove', this.listenerMousemove);
-                    document.addEventListener('mouseup', this.listenerMouseup);
                     this.setCursor(event);
                 };
-                SliderDirective.prototype.onMouseUp = function (event) {
-                    document.removeEventListener('mousemove', this.listenerMousemove);
-                    document.removeEventListener('mouseup', this.listenerMouseup);
+                SliderDirective.prototype.start = function (event) {
+                    this.setCursor(event);
+                    document.addEventListener('mousemove', this.listenerMove);
+                    document.addEventListener('touchmove', this.listenerMove);
+                    document.addEventListener('mouseup', this.listenerStop);
+                    document.addEventListener('touchend', this.listenerStop);
+                };
+                SliderDirective.prototype.stop = function () {
+                    document.removeEventListener('mousemove', this.listenerMove);
+                    document.removeEventListener('touchmove', this.listenerMove);
+                    document.removeEventListener('mouseup', this.listenerStop);
+                    document.removeEventListener('touchend', this.listenerStop);
+                };
+                SliderDirective.prototype.getX = function (event) {
+                    return (event.pageX !== undefined ? event.pageX : event.touches[0].pageX) - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
+                };
+                SliderDirective.prototype.getY = function (event) {
+                    return (event.pageY !== undefined ? event.pageY : event.touches[0].pageY) - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
                 };
                 __decorate([
                     core_1.Output('newValue'), 
@@ -187,17 +189,18 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                 ], SliderDirective.prototype, "slider", void 0);
                 __decorate([
                     core_1.Input('rgX'), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', Number)
                 ], SliderDirective.prototype, "rgX", void 0);
                 __decorate([
                     core_1.Input('rgY'), 
-                    __metadata('design:type', Object)
+                    __metadata('design:type', Number)
                 ], SliderDirective.prototype, "rgY", void 0);
                 SliderDirective = __decorate([
                     core_1.Directive({
                         selector: '[slider]',
                         host: {
-                            '(mousedown)': 'onMousedown($event)'
+                            '(mousedown)': 'start($event)',
+                            '(touchstart)': 'start($event)'
                         }
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef])
@@ -209,16 +212,11 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                 function DialogComponent(el, service) {
                     this.el = el;
                     this.service = service;
+                    this.dialogHeight = 290;
+                    this.dialogWidth = 232;
+                    this.dialogArrowSize = 10;
+                    this.dialogArrowShift = 15;
                 }
-                /*setDirectiveInstance(instance: any) {
-                    this.directiveInstance = instance;
-                }
-                setInitialColor(color: any) {
-                    this.initialColor = color;
-                }
-                setDirectiveElementRef(elementRef: ElementRef) {
-                    this.directiveElementRef = elementRef;
-                }*/
                 DialogComponent.prototype.setDialog = function (instance, elementRef, color, cpPosition, cpOutputFormat, cpCancelButton) {
                     this.directiveInstance = instance;
                     this.initialColor = color;
@@ -247,8 +245,36 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     else {
                         this.format = 0;
                     }
-                    this.listenerClick = function (event) { _this.closeColorPicker(event); };
+                    this.listenerMouseDown = function (event) { _this.onMouseDown(event); };
+                    this.listenerResize = function () { _this.onResize(); };
                     this.update();
+                    this.openColorPicker();
+                };
+                DialogComponent.prototype.openColorPicker = function () {
+                    if (!this.show) {
+                        this.setDialogPosition();
+                        this.show = true;
+                        document.addEventListener('mousedown', this.listenerMouseDown);
+                        window.addEventListener('resize', this.listenerResize);
+                    }
+                };
+                DialogComponent.prototype.onMouseDown = function (event) {
+                    if (!this.service.isDescendant(this.el.nativeElement, event.target)
+                        && event.target != this.directiveElementRef.nativeElement) {
+                        this.closeColorPicker();
+                    }
+                };
+                DialogComponent.prototype.closeColorPicker = function () {
+                    this.show = false;
+                    document.removeEventListener('mouseup', this.listenerMouseDown);
+                    window.removeEventListener('resize', this.listenerResize);
+                };
+                DialogComponent.prototype.onResize = function () {
+                    if (this.position === 'fixed') {
+                        this.setDialogPosition();
+                    }
+                };
+                DialogComponent.prototype.setDialogPosition = function () {
                     var node = this.directiveElementRef.nativeElement;
                     var position = 'static';
                     var parentNode = null;
@@ -264,49 +290,36 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     }
                     var top, left;
                     if (position !== 'fixed') {
-                        var boxDirentive = this.service.createBox(this.directiveElementRef.nativeElement, true);
+                        var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, true);
                         if (parentNode === null) {
                             parentNode = node;
                         }
                         var boxParent = this.service.createBox(parentNode, true);
-                        top = boxDirentive.top - boxParent.top;
-                        left = boxDirentive.left - boxParent.left;
+                        top = boxDirective.top - boxParent.top;
+                        left = boxDirective.left - boxParent.left;
                     }
                     else {
-                        var boxDirentive = this.service.createBox(this.directiveElementRef.nativeElement, false);
-                        top = boxDirentive.top;
-                        left = boxDirentive.left;
+                        var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, false);
+                        top = boxDirective.top;
+                        left = boxDirective.left;
                         this.position = 'fixed';
                     }
                     if (this.cpPosition === 'left') {
-                        left -= 252;
+                        top += boxDirective.height / 2 - this.dialogArrowShift;
+                        left -= this.dialogWidth + this.dialogArrowSize;
                     }
                     else if (this.cpPosition === 'top') {
-                        top -= 300;
-                        left -= 10;
+                        top -= this.dialogHeight + this.dialogArrowSize;
                     }
                     else if (this.cpPosition === 'bottom') {
-                        top += boxDirentive.height + 10;
-                        left -= 10;
+                        top += boxDirective.height + this.dialogArrowSize;
                     }
                     else {
-                        left += boxDirentive.width;
+                        top += boxDirective.height / 2 - this.dialogArrowShift;
+                        left += boxDirective.width + this.dialogArrowSize;
                     }
                     this.top = top + 'px';
                     this.left = left + 'px';
-                    this.openColorPicker();
-                };
-                DialogComponent.prototype.openColorPicker = function () {
-                    if (!this.show) {
-                        this.show = true;
-                        document.addEventListener('mousedown', this.listenerClick);
-                    }
-                };
-                DialogComponent.prototype.closeColorPicker = function (event) {
-                    if (!this.service.isDescendant(this.el.nativeElement, event.target) && event.target != this.directiveElementRef.nativeElement) {
-                        this.show = false;
-                        document.removeEventListener('mousedown', this.listenerClick);
-                    }
                 };
                 DialogComponent.prototype.setSaturation = function (val) {
                     var hsla = this.service.hsva2hsla(this.hsva);
@@ -367,9 +380,9 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                 };
                 DialogComponent.prototype.update = function () {
                     var hsla = this.service.hsva2hsla(this.hsva);
-                    this.hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
                     var rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
                     var hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new classes_1.Hsva(this.hsva.h, 1, 1, 1)));
+                    this.hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
                     this.rgbaText = new classes_1.Rgba(rgba.r, rgba.g, rgba.b, this.service.round(rgba.a, 2));
                     this.hexText = this.service.hexText(rgba);
                     this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
