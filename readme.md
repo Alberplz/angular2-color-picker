@@ -1,12 +1,13 @@
 # angular2-color-picker
-Angular 2 Color Picker Directive with no dependencies required.
-This is a Color Picker Directive for Angular 2 (now in beta). This version is compiled for Angular 2 beta 7.
+Angular 2 Color Picker Directive with no dependencies required.<br />
+This is a Color Picker Directive for Angular 2.
 
 # Demo page
 http://alberplz.github.io/angular2-color-picker/index.html
 
 # Intallation
-bower install angular2-color-picker
+* Via Git: <br /> git clone https://github.com/Alberplz/angular2-color-picker.git
+* Via Bower: <br /> bower install angular2-color-picker
 
 # Usage
 * In your view:
@@ -39,16 +40,25 @@ Default option is the first item.
 ```html
 [cpOutputFormat]="'hex', 'rgba', 'hsla'"
 [cpPosition]="'right', 'left', 'top', 'bottom'"
+[cpPositionOffset]="'0%'"
+[cpPositionRelativeToArrow]="false, true"
+[cpCancelButton]="false, true"
+[cpHeight]="'290px'"
+[cpCancelButtonClass]="'cp-cancel-button-class'"
+[cpCancelButtonText]="'Cancel'"
 ```
 
 #Extra content
 If you want to change precaculated images for color picker sliders, you can find a little script in this project:
 https://github.com/Alberplz/angular-colorpicker-directive
 
-#Tested in:
-* Chrome 48
-* Firefox 44.0.2
+#Tested in last versions:
+* Chrome
+* Firefox
 * Microsoft Edge
-* Opera 35.0
-* Safari 5.1.7, not working in beta 7.
-* Internet Explorer 11, not working in beta 7.
+* Opera
+* Safari
+* Internet Explorer
+
+#For previous version of Angular:
+https://github.com/Alberplz/angular-colorpicker-directive

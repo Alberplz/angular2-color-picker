@@ -35,13 +35,12 @@
 .arrow-bottom {
   border-width: 10px 5px;
   border-color: transparent transparent #777 transparent;
-  top: -21px;
+  top: -20px;
   left: 10px; }
 
 .arrow-top {
   border-width: 10px 5px;
   border-color: #777 transparent transparent transparent;
-  top: 289px;
   left: 10px; }
 
 .color-picker {
@@ -76,13 +75,10 @@
     .color-picker input::-webkit-inner-spin-button, .color-picker input::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0; }
-  .color-picker button {
+  .color-picker .cp-cancel-button-class {
     position: absolute;
     top: 275px;
     left: 161px; }
-
-.color-picker-extra-large {
-  height: 320px !important; }
 
 div.cursor-sv {
   cursor: default;

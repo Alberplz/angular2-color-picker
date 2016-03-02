@@ -29,6 +29,8 @@ System.register(['angular2/core', './color-picker/color-picker.directive'], func
                     this.color4 = "rgb(236,64,64)";
                     this.color5 = "rgba(45,208,45,1)";
                     this.color6 = "#1973c0";
+                    this.color7 = "#f200bd";
+                    this.color8 = "#a8ff00";
                 }
                 AppComponent = __decorate([
                     core_1.Component({

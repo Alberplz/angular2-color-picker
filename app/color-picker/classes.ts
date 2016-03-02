@@ -8,7 +8,7 @@ export class Rgba {
     constructor(public r: number, public g: number, public b: number, public a: number) { }
 }
 export class SliderPosition {
-    constructor(public h: string, public s: string, public v: string, public a: string) { }
+    constructor(public h: number, public s: number, public v: number, public a: number) { }
 }
 export class SliderDimension {
     constructor(public h: number, public s: number, public v: number, public a: number) { }

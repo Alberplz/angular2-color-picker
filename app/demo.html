@@ -4,7 +4,6 @@
     <h4><b>by Alberto Pujante</b></h4>
     <a class="btn btn-primary btn-lg" href="https://github.com/Alberplz/angular2-color-picker">View on Github</a>
 
-    <h1>Angular2 Color Picker</h1>
     <hr>
     <div class="row">         
         <div class="col-md-5">
@@ -27,7 +26,7 @@
                 [value]="color2"/>
         </div>   
         <div class="col-md-7">  
-            <p>Show text input color:</p>
+            <p>Show the color in the input field:</p>
             <pre>
 &lt;input [(colorPicker)]="color" 
        [style.background]="color" 
@@ -68,7 +67,7 @@
                 [cpPosition]="'bottom'"/>
         </div>   
         <div class="col-md-7">  
-            <p>Changing background color and input value:</p>
+            <p>Changing dialog position:</p>
             <pre>
 &lt;input [(colorPicker)]="color" 
        [style.background]="color" 
@@ -83,18 +82,67 @@
         <div class="col-md-5" >
             <span id="changeme" [(colorPicker)]="color6" 
                   [style.color]="color6"
-                  [cpPosition]="'bottom'">Change me!</span>
+                  [cpPosition]="'bottom'"
+                  [cpPositionOffset]="'50%'"
+                  [cpPositionRelativeToArrow]="true">Change me!</span>
         </div>   
         <div class="col-md-7">  
-            <p>Use it with others html elements:</p>
+            <p>You can introduce a offset of the color picker relative to the html element:</p>
             <pre>
 &lt;span [(colorPicker)]="color" 
       [cpPosition]="'bottom'"
-      [style.color]="color">Change me!&lt;/span&gt;
+      [style.color]="color"
+      [cpPositionOffset]="'50%'"
+      [cpPositionRelativeToArrow]="true">Change me!&lt;/span&gt;
             </pre>            
         </div>
     </div>
-
+    
+    <hr>
+    <div class="row" > 
+        <div class="col-md-5" >
+            <input [(colorPicker)]="color7" 
+                [style.background]="color7"                   
+                [value]="color7"
+                [cpCancelButton]="true"
+                [cpHeight]="'310px'"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Show cancel button and change color picker dialog height:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpCancelButton]="true"
+       [cpHeight]="'310px'"/&gt;
+            </pre>            
+        </div>
+    </div>
+    
+       <hr>
+    <div class="row" > 
+        <div class="col-md-5" >
+            <input [(colorPicker)]="color8" 
+                [style.background]="color8"                   
+                [value]="color8"
+                [cpCancelButton]="true"
+                [cpHeight]="'310px'"
+                [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Change cancel button class, default is 'cp-cancel-button-class' and only sets button position,<br>
+                in this example we are using a bootstrap button:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpCancelButton]="true"
+       [cpHeight]="'310px'"
+       [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/&gt;
+            </pre>            
+        </div>
+    </div>
+    
     <hr>
     <br>
     <div class="row">
@@ -117,6 +165,54 @@
                         <td>cpPosition</td>
                         <td>
                             <b>'right'</b>, 'left', 'top', 'bottom'
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpPositionOffset</td>
+                        <td>                            
+                            <b>'0%'</b><br>
+                            Dialog offset (percent) relative to the element that contains the directive.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpPositionRelativeToArrow</td>
+                        <td>                            
+                            <b>false</b>, true <br>
+                            Dialog position is calculated relative to the dialog (false) or relative to the dialog arrow (true).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpCancelButton</td>
+                        <td>                            
+                            <b>false</b>, true<br>
+                            When the user cancels the initial color is restored.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpHeight</td>
+                        <td>                            
+                            <b>'290px'</b><br>
+                            Use this option with cpCancelButton to redefine a new color picker dialog height (pixels).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpCancelButtonClass</td>
+                        <td>                            
+                            <b>'cancel-button-class'</b><br>
+                            Default class only sets button position:
+                            <pre>
+.cp-cancel-button-class{
+    position:absolute; 
+    top: 275px;
+    left: 161px;    
+}
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpCancelButtonText</td>
+                        <td>
+                            <b>'Cancel'</b>
                         </td>
                     </tr>
                 </tbody>

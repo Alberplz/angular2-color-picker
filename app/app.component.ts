@@ -14,4 +14,6 @@ export class AppComponent {
     private color4: string = "rgb(236,64,64)";
     private color5: string = "rgba(45,208,45,1)";
     private color6: string = "#1973c0";
+    private color7: string = "#f200bd";
+    private color8: string = "#a8ff00";
 }
