@@ -1,6 +1,6 @@
 # angular2-color-picker
-Angular 2 Color Picker Directive with no dependencies required.<br />
-This is a Color Picker Directive for Angular 2.
+Angular 2 Color Picker Directive/Component with no dependencies required.<br />
+This is a Color Picker Directive/Component for Angular 2.
 
 # Demo page
 http://alberplz.github.io/angular2-color-picker/index.html
@@ -52,7 +52,7 @@ Default option is the first item.
 If you want to change precaculated images for color picker sliders, you can find a little script in this project:
 https://github.com/Alberplz/angular-colorpicker-directive
 
-#Tested in last versions:
+#Tested in:
 * Chrome
 * Firefox
 * Microsoft Edge
