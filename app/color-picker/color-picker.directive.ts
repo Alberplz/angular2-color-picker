@@ -67,17 +67,17 @@ export class ColorPickerDirective implements OnInit {
     }
 })
 export class TextDirective {
-    @Output('action') action = new EventEmitter<any>();
+    @Output('newValue') newValue = new EventEmitter<any>();
     @Input('text') text: any;
     @Input('rg') rg: number;
 
     changeInput(value: string) {
         if (this.rg === undefined) {
-            this.action.emit(value);
+            this.newValue.emit(value);
         } else {
             let numeric = parseFloat(value)
             if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
-                this.action.emit({ v: numeric, rg: this.rg });
+                this.newValue.emit({ v: numeric, rg: this.rg });
             }
         }
     }
@@ -104,17 +104,17 @@ export class SliderDirective {
     }
 
     setCursor(event: Event) {
-        let maxTop = this.el.nativeElement.offsetHeight;
-        let maxLeft = this.el.nativeElement.offsetWidth;
-        let x = Math.max(0, Math.min(this.getX(event), maxLeft));
-        let y = Math.max(0, Math.min(this.getY(event), maxTop));
+        let height = this.el.nativeElement.offsetHeight;
+        let width = this.el.nativeElement.offsetWidth;
+        let x = Math.max(0, Math.min(this.getX(event), width));
+        let y = Math.max(0, Math.min(this.getY(event), height));
 
         if (this.rgX !== undefined && this.rgY !== undefined) {
-            this.newValue.emit({ s: x / maxLeft, v: (1 - y / maxTop), rgX: this.rgX, rgY: this.rgY });
-        } else if (this.rgX === undefined && this.rgY !== undefined) {
-            this.newValue.emit({ v: y / maxTop, rg: this.rgY });
+            this.newValue.emit({ s: x / width, v: (1 - y / height), rgX: this.rgX, rgY: this.rgY });
+        } else if (this.rgX === undefined && this.rgY !== undefined) {//ready to use vertical sliders
+            this.newValue.emit({ v: y / height, rg: this.rgY });
         } else {
-            this.newValue.emit({ v: x / maxLeft, rg: this.rgX });
+            this.newValue.emit({ v: x / width, rg: this.rgX });
         }
     }
 

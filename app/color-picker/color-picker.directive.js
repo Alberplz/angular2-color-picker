@@ -123,23 +123,23 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
             exports_1("ColorPickerDirective", ColorPickerDirective);
             TextDirective = (function () {
                 function TextDirective() {
-                    this.action = new core_1.EventEmitter();
+                    this.newValue = new core_1.EventEmitter();
                 }
                 TextDirective.prototype.changeInput = function (value) {
                     if (this.rg === undefined) {
-                        this.action.emit(value);
+                        this.newValue.emit(value);
                     }
                     else {
                         var numeric = parseFloat(value);
                         if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
-                            this.action.emit({ v: numeric, rg: this.rg });
+                            this.newValue.emit({ v: numeric, rg: this.rg });
                         }
                     }
                 };
                 __decorate([
-                    core_1.Output('action'), 
+                    core_1.Output('newValue'), 
                     __metadata('design:type', Object)
-                ], TextDirective.prototype, "action", void 0);
+                ], TextDirective.prototype, "newValue", void 0);
                 __decorate([
                     core_1.Input('text'), 
                     __metadata('design:type', Object)
@@ -169,18 +169,18 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     this.listenerStop = function () { _this.stop(); };
                 }
                 SliderDirective.prototype.setCursor = function (event) {
-                    var maxTop = this.el.nativeElement.offsetHeight;
-                    var maxLeft = this.el.nativeElement.offsetWidth;
-                    var x = Math.max(0, Math.min(this.getX(event), maxLeft));
-                    var y = Math.max(0, Math.min(this.getY(event), maxTop));
+                    var height = this.el.nativeElement.offsetHeight;
+                    var width = this.el.nativeElement.offsetWidth;
+                    var x = Math.max(0, Math.min(this.getX(event), width));
+                    var y = Math.max(0, Math.min(this.getY(event), height));
                     if (this.rgX !== undefined && this.rgY !== undefined) {
-                        this.newValue.emit({ s: x / maxLeft, v: (1 - y / maxTop), rgX: this.rgX, rgY: this.rgY });
+                        this.newValue.emit({ s: x / width, v: (1 - y / height), rgX: this.rgX, rgY: this.rgY });
                     }
                     else if (this.rgX === undefined && this.rgY !== undefined) {
-                        this.newValue.emit({ v: y / maxTop, rg: this.rgY });
+                        this.newValue.emit({ v: y / height, rg: this.rgY });
                     }
                     else {
-                        this.newValue.emit({ v: x / maxLeft, rg: this.rgX });
+                        this.newValue.emit({ v: x / width, rg: this.rgX });
                     }
                 };
                 SliderDirective.prototype.move = function (event) {
