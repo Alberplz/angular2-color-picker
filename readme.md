@@ -5,12 +5,12 @@ This is a Color Picker Directive/Component for Angular 2.
 # Demo page
 http://alberplz.github.io/angular2-color-picker/index.html
 
-# Intallation
+# Installation
 * Via Git: <br /> git clone https://github.com/Alberplz/angular2-color-picker.git
 * Via Bower: <br /> bower install angular2-color-picker
 
 # Usage
-* In your view:
+* Use it in your HTML elements, for example:
 ```html
 <input [(colorPicker)]="color" [style.background]="color" [value]="color"/>
 ```
@@ -49,7 +49,7 @@ Default option is the first item.
 ```
 
 #Extra content
-If you want to change precaculated images for color picker sliders, you can find a little script in this project:
+If you want to change precalculated images for color picker sliders, you can find a little script in this project:
 https://github.com/Alberplz/angular-colorpicker-directive
 
 #Tested in:
