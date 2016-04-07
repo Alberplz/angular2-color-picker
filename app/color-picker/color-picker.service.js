@@ -148,33 +148,12 @@ System.register(['angular2/core', './classes'], function(exports_1, context_1) {
                     }
                     return hsva;
                 };
-                ColorPickerService.prototype.round = function (num, places) {
-                    return Math.round(num * Math.pow(10, places)) / Math.pow(10, places);
-                };
-                ColorPickerService.prototype.isDescendant = function (parent, child) {
-                    var node = child.parentNode;
-                    while (node !== null) {
-                        if (node === parent) {
-                            return true;
-                        }
-                        node = node.parentNode;
-                    }
-                    return false;
-                };
-                ColorPickerService.prototype.createBox = function (element, offset) {
-                    return {
-                        top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
-                        left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
-                        width: element.offsetWidth,
-                        height: element.offsetHeight
-                    };
-                };
                 ColorPickerService.prototype.outputFormat = function (hsva, outputFormat) {
                     if (hsva.a < 1) {
                         switch (outputFormat) {
                             case 'hsla':
                                 var hsla = this.hsva2hsla(hsva);
-                                var hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.round(hsla.a, 2));
+                                var hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
                                 return 'hsla(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%,' + hslaText.a + ')';
                             default:
                                 var rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
@@ -185,7 +164,7 @@ System.register(['angular2/core', './classes'], function(exports_1, context_1) {
                         switch (outputFormat) {
                             case 'hsla':
                                 var hsla = this.hsva2hsla(hsva);
-                                var hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.round(hsla.a, 2));
+                                var hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
                                 return 'hsl(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%)';
                             case 'rgba':
                                 var rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));

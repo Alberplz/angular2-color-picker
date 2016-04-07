@@ -147,36 +147,12 @@ export class ColorPickerService {
         return hsva;
     }
 
-    round(num, places) {
-        return Math.round(num * Math.pow(10, places)) / Math.pow(10, places);
-    }
-
-    isDescendant(parent, child) {
-        var node = child.parentNode;
-        while (node !== null) {
-            if (node === parent) {
-                return true;
-            }
-            node = node.parentNode;
-        }
-        return false;
-    }
-
-    createBox(element, offset) {
-        return {
-            top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
-            left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
-            width: element.offsetWidth,
-            height: element.offsetHeight
-        };
-    }
-
     outputFormat(hsva: Hsva, outputFormat: string) {
         if (hsva.a < 1) {
             switch (outputFormat) {
                 case 'hsla':
                     let hsla = this.hsva2hsla(hsva);
-                    let hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.round(hsla.a, 2));
+                    let hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
                     return 'hsla(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%,' + hslaText.a + ')';
                 default:
                     let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
@@ -186,7 +162,7 @@ export class ColorPickerService {
             switch (outputFormat) {
                 case 'hsla':
                     let hsla = this.hsva2hsla(hsva);
-                    let hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.round(hsla.a, 2));
+                    let hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
                     return 'hsl(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%)';
                 case 'rgba':
                     let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));

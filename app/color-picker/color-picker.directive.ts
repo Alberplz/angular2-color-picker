@@ -54,7 +54,7 @@ export class ColorPickerDirective implements OnInit {
     }
 
     changeInput(value: string) {
-        this.dialog.setColorFromHex(value)
+        this.dialog.setColorFromString(value)
         this.colorPickerChange.emit(value)
     }
 }
@@ -99,11 +99,11 @@ export class SliderDirective {
     private listenerStop: any;
 
     constructor(private el: ElementRef) {
-        this.listenerMove = (event: Event) => { this.move(event) };
+        this.listenerMove = (event: any) => { this.move(event) };
         this.listenerStop = () => { this.stop() };
     }
 
-    setCursor(event: Event) {
+    setCursor(event: any) {
         let height = this.el.nativeElement.offsetHeight;
         let width = this.el.nativeElement.offsetWidth;
         let x = Math.max(0, Math.min(this.getX(event), width));
@@ -118,12 +118,12 @@ export class SliderDirective {
         }
     }
 
-    move(event: Event) {
+    move(event: any) {
         event.preventDefault();
         this.setCursor(event);
     }
 
-    start(event: Event) {
+    start(event: any) {
         this.setCursor(event);
         document.addEventListener('mousemove', this.listenerMove);
         document.addEventListener('touchmove', this.listenerMove);
@@ -138,10 +138,10 @@ export class SliderDirective {
         document.removeEventListener('touchend', this.listenerStop);
     }
 
-    getX(event: Event) {
+    getX(event: any) {
         return (event.pageX !== undefined ? event.pageX : event.touches[0].pageX) - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
     }
-    getY(event: Event) {
+    getY(event: any) {
         return (event.pageY !== undefined ? event.pageY : event.touches[0].pageY) - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
     }
 }
@@ -202,7 +202,7 @@ export class DialogComponent implements OnInit {
         this.cpOutputFormat = cpOutputFormat;
         this.cpCancelButton = cpCancelButton;
         this.cpCancelButtonClass = cpCancelButtonClass;
-        this.cpCancelButtonText = cpCancelButtonText;        
+        this.cpCancelButtonText = cpCancelButtonText;
         this.cpHeight = parseInt(cpHeight);
     }
 
@@ -226,7 +226,7 @@ export class DialogComponent implements OnInit {
         } else {
             this.format = 0;
         }
-        this.listenerMouseDown = (event: Event) => { this.onMouseDown(event) };
+        this.listenerMouseDown = (event: any) => { this.onMouseDown(event) };
         this.listenerResize = () => { this.onResize() };
         this.update();
         this.openColorPicker();
@@ -241,8 +241,8 @@ export class DialogComponent implements OnInit {
         }
     }
 
-    onMouseDown(event: Event) {
-        if (!this.service.isDescendant(this.el.nativeElement, event.target)
+    onMouseDown(event: any) {
+        if (!this.isDescendant(this.el.nativeElement, event.target)
             && event.target != this.directiveElementRef.nativeElement) {
             this.closeColorPicker();
         }
@@ -275,13 +275,13 @@ export class DialogComponent implements OnInit {
             node = node.parentNode;
         }
         if (position !== 'fixed') {
-            var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, true);
+            var boxDirective = this.createBox(this.directiveElementRef.nativeElement, true);
             if (parentNode === null) { parentNode = node }
-            let boxParent = this.service.createBox(parentNode, true);
+            let boxParent = this.createBox(parentNode, true);
             this.top = boxDirective.top - boxParent.top;
             this.left = boxDirective.left - boxParent.left;
         } else {
-            var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, false);
+            var boxDirective = this.createBox(this.directiveElementRef.nativeElement, false);
             this.top = boxDirective.top;
             this.left = boxDirective.left;
             this.position = 'fixed';
@@ -351,7 +351,7 @@ export class DialogComponent implements OnInit {
         this.update();
     }
 
-    setColorFromHex(value: string) {
+    setColorFromString(value: string) {
         let hsva = this.service.stringToHsva(value);
         if (hsva !== null) {
             this.hsva = hsva;
@@ -372,8 +372,8 @@ export class DialogComponent implements OnInit {
         let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
         let hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new Hsva(this.hsva.h, 1, 1, 1)));
 
-        this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
-        this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, this.service.round(rgba.a, 2));
+        this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
+        this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
         this.hexText = this.service.hexText(rgba);
 
         this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
@@ -392,7 +392,27 @@ export class DialogComponent implements OnInit {
     }
 
     cancelColor() {
-        this.setColorFromHex(this.initialColor);
+        this.setColorFromString(this.initialColor);
         this.closeColorPicker();
+    }
+
+    isDescendant(parent, child) {
+        var node = child.parentNode;
+        while (node !== null) {
+            if (node === parent) {
+                return true;
+            }
+            node = node.parentNode;
+        }
+        return false;
+    }
+
+    createBox(element, offset) {
+        return {
+            top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
+            left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
+            width: element.offsetWidth,
+            height: element.offsetHeight
+        };
     }
 }

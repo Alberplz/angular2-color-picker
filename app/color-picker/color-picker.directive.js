@@ -65,7 +65,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     this.colorPickerChange.emit(value);
                 };
                 ColorPickerDirective.prototype.changeInput = function (value) {
-                    this.dialog.setColorFromHex(value);
+                    this.dialog.setColorFromString(value);
                     this.colorPickerChange.emit(value);
                 };
                 __decorate([
@@ -295,7 +295,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     }
                 };
                 DialogComponent.prototype.onMouseDown = function (event) {
-                    if (!this.service.isDescendant(this.el.nativeElement, event.target)
+                    if (!this.isDescendant(this.el.nativeElement, event.target)
                         && event.target != this.directiveElementRef.nativeElement) {
                         this.closeColorPicker();
                     }
@@ -324,16 +324,16 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                         node = node.parentNode;
                     }
                     if (position !== 'fixed') {
-                        var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, true);
+                        var boxDirective = this.createBox(this.directiveElementRef.nativeElement, true);
                         if (parentNode === null) {
                             parentNode = node;
                         }
-                        var boxParent = this.service.createBox(parentNode, true);
+                        var boxParent = this.createBox(parentNode, true);
                         this.top = boxDirective.top - boxParent.top;
                         this.left = boxDirective.left - boxParent.left;
                     }
                     else {
-                        var boxDirective = this.service.createBox(this.directiveElementRef.nativeElement, false);
+                        var boxDirective = this.createBox(this.directiveElementRef.nativeElement, false);
                         this.top = boxDirective.top;
                         this.left = boxDirective.left;
                         this.position = 'fixed';
@@ -399,7 +399,7 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     this.hsva.v = val.v / val.rgY;
                     this.update();
                 };
-                DialogComponent.prototype.setColorFromHex = function (value) {
+                DialogComponent.prototype.setColorFromString = function (value) {
                     var hsva = this.service.stringToHsva(value);
                     if (hsva !== null) {
                         this.hsva = hsva;
@@ -417,8 +417,8 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     var hsla = this.service.hsva2hsla(this.hsva);
                     var rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
                     var hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new classes_1.Hsva(this.hsva.h, 1, 1, 1)));
-                    this.hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), this.service.round(hsla.a, 2));
-                    this.rgbaText = new classes_1.Rgba(rgba.r, rgba.g, rgba.b, this.service.round(rgba.a, 2));
+                    this.hslaText = new classes_1.Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
+                    this.rgbaText = new classes_1.Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
                     this.hexText = this.service.hexText(rgba);
                     this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
                     this.hueSliderColor = 'rgb(' + hueRgba.r + ',' + hueRgba.g + ',' + hueRgba.b + ')';
@@ -430,8 +430,26 @@ System.register(['angular2/core', './color-picker.service', './classes'], functi
                     this.directiveInstance.colorChanged(this.outputColor);
                 };
                 DialogComponent.prototype.cancelColor = function () {
-                    this.setColorFromHex(this.initialColor);
+                    this.setColorFromString(this.initialColor);
                     this.closeColorPicker();
+                };
+                DialogComponent.prototype.isDescendant = function (parent, child) {
+                    var node = child.parentNode;
+                    while (node !== null) {
+                        if (node === parent) {
+                            return true;
+                        }
+                        node = node.parentNode;
+                    }
+                    return false;
+                };
+                DialogComponent.prototype.createBox = function (element, offset) {
+                    return {
+                        top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
+                        left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
+                        width: element.offsetWidth,
+                        height: element.offsetHeight
+                    };
                 };
                 DialogComponent = __decorate([
                     core_1.Component({

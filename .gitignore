@@ -5,3 +5,4 @@ npm-debug.log
 app/color-picker/.sass-cache/*
 app/.sass-cache/
 create-dist.bat
+.sass-cache/*
