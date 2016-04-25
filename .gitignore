@@ -6,3 +6,6 @@ app/color-picker/.sass-cache/*
 app/.sass-cache/
 create-dist.bat
 .sass-cache/*
+*.js
+*.js.map
+*.css.map

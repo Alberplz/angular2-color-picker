@@ -33,7 +33,7 @@
     </div>
 
     <div [hidden]="format!=0" class="hex-text">
-        <input [text] (newValue)="setColorFromHex($event)" [value]="hexText"/>
+        <input [text] (newValue)="setColorFromString($event)" [value]="hexText"/>
         <div>Hex</div>
     </div>
 
