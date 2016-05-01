@@ -1,6 +1,9 @@
-import {Component, DynamicComponentLoader, Directive, Input, Output, ElementRef, EventEmitter, OnInit} from 'angular2/core';
+import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit} from 'angular2/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
+
+const styleUrls: string[] = ['app/color-picker/color-picker.css'];
+const templateUrl: string = 'app/color-picker/color-picker.html';
 
 @Directive({
     selector: '[colorPicker]',
@@ -23,7 +26,7 @@ export class ColorPickerDirective implements OnInit {
     private dialog: any;
     private created: boolean;
 
-    constructor(private dcl: DynamicComponentLoader, private el: ElementRef, private service: ColorPickerService) {
+    constructor(private dcl: DynamicComponentLoader, private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService) {
         this.created = false;
     }
 
@@ -37,7 +40,7 @@ export class ColorPickerDirective implements OnInit {
     onClick() {
         if (!this.created) {
             this.created = true;
-            this.dcl.loadNextToLocation(DialogComponent, this.el)
+            this.dcl.loadNextToLocation(DialogComponent, this.vcRef)
                 .then((res) => {
                     res.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
                         this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight);
@@ -148,8 +151,8 @@ export class SliderDirective {
 
 @Component({
     selector: 'color-picker',
-    templateUrl: 'app/color-picker/color-picker.html',
-    styleUrls: ['app/color-picker/color-picker.css'],
+    templateUrl: templateUrl,
+    styleUrls: styleUrls,
     directives: [SliderDirective, TextDirective]
 })
 export class DialogComponent implements OnInit {
