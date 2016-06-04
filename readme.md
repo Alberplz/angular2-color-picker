@@ -46,6 +46,7 @@ Default option is the first item.
 [cpHeight]="'290px'"
 [cpCancelButtonClass]="'cp-cancel-button-class'"
 [cpCancelButtonText]="'Cancel'"
+[cpFallbackColor]="'#fff'"
 ```
 
 #Extra content

@@ -1,21 +1,21 @@
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Rgba, Hsla, Hsva} from './classes';
 
 @Injectable()
 export class ColorPickerService {
     constructor() { }
 
-    hsla2hsva(hsla: Hsla) {
+    hsla2hsva(hsla: Hsla): Hsva {
         var h = Math.min(hsla.h, 1), s = Math.min(hsla.s, 1), l = Math.min(hsla.l, 1), a = Math.min(hsla.a, 1);
         if (l === 0) {
-            return { h: h, s: 0, v: 0, a: a };
+            return new Hsva(h, 0, 0, a);
         } else {
             var v = l + s * (1 - Math.abs(2 * l - 1)) / 2;
-            return { h: h, s: 2 * (v - l) / v, v: v, a: a };
+            return new Hsva(h, 2 * (v - l) / v, v, a);
         }
     }
 
-    hsva2hsla(hsva: Hsva) {
+    hsva2hsla(hsva: Hsva): Hsla {
         var h = hsva.h, s = hsva.s, v = hsva.v, a = hsva.a;
         if (v === 0) {
             return new Hsla(h, 0, 0, a)
@@ -27,7 +27,7 @@ export class ColorPickerService {
         }
     }
 
-    rgbaToHsva(rgba: Rgba) {
+    rgbaToHsva(rgba: Rgba): Hsva {
         var r = Math.min(rgba.r, 1), g = Math.min(rgba.g, 1), b = Math.min(rgba.b, 1), a = Math.min(rgba.a, 1);
         var max = Math.max(r, g, b), min = Math.min(r, g, b);
         var h, s, v = max;
@@ -55,7 +55,7 @@ export class ColorPickerService {
         return new Hsva(h, s, v, a)
     }
 
-    hsvaToRgba(hsva: Hsva) {
+    hsvaToRgba(hsva: Hsva): Rgba {
         var h = hsva.h, s = hsva.s, v = hsva.v, a = hsva.a;
         var r, g, b;
 
@@ -89,7 +89,7 @@ export class ColorPickerService {
         return new Rgba(r, g, b, a)
     }
 
-    stringToHsva(colorString) {
+    stringToHsva(colorString: string = ''): Hsva {
         var stringParsers = [
             {
                 re: /(rgb)a?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*%?,\s*(\d{1,3})\s*%?(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
@@ -147,7 +147,7 @@ export class ColorPickerService {
         return hsva;
     }
 
-    outputFormat(hsva: Hsva, outputFormat: string) {
+    outputFormat(hsva: Hsva, outputFormat: string): string {
         if (hsva.a < 1) {
             switch (outputFormat) {
                 case 'hsla':
@@ -173,7 +173,7 @@ export class ColorPickerService {
         }
     }
 
-    hexText(rgba: Rgba) {
+    hexText(rgba: Rgba): string {
         let hexText = '#' + ((1 << 24) | (rgba.r << 16) | (rgba.g << 8) | rgba.b).toString(16).substr(1);
         if (hexText[1] === hexText[2] && hexText[3] === hexText[4] && hexText[5] === hexText[6]) {
             hexText = '#' + hexText[1] + hexText[3] + hexText[5];
@@ -181,7 +181,7 @@ export class ColorPickerService {
         return hexText;
     }
 
-    denormalizeRGBA(rgba: Rgba) {
+    denormalizeRGBA(rgba: Rgba): Rgba {
         return new Rgba(Math.round(rgba.r * 255), Math.round(rgba.g * 255), Math.round(rgba.b * 255), rgba.a);
     }
 

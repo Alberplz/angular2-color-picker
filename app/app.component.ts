@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ColorPickerDirective} from './color-picker/color-picker.directive'
 
 @Component({
@@ -8,7 +8,7 @@ import {ColorPickerDirective} from './color-picker/color-picker.directive'
 })
 
 export class AppComponent {
-    private color: string = "#127bdc";
+    private color: string = '#2889e9';
     private color2: string = "hsla(300,82%,52%)";
     private color3: string = "#fff500";
     private color4: string = "rgb(236,64,64)";

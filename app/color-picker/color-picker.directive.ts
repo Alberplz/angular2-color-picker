@@ -1,4 +1,4 @@
-import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit} from 'angular2/core';
+import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit} from '@angular/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 
@@ -22,6 +22,7 @@ export class ColorPickerDirective implements OnInit {
     @Input('cpCancelButton') cpCancelButton: boolean = false;
     @Input('cpCancelButtonClass') cpCancelButtonClass: string = 'cp-cancel-button-class';
     @Input('cpCancelButtonText') cpCancelButtonText: string = 'Cancel';
+    @Input('cpFallbackColor') cpFallbackColor: string = '#fff';
     @Input('cpHeight') cpHeight: string = '290px';
     private dialog: any;
     private created: boolean;
@@ -31,10 +32,11 @@ export class ColorPickerDirective implements OnInit {
     }
 
     ngOnInit() {
-        let hsva = this.service.stringToHsva(this.colorPicker);
-        if (hsva !== null) {
-            this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat));
+        var hsva = this.service.stringToHsva(this.colorPicker);
+        if (hsva == null) {
+            hsva = this.service.stringToHsva(this.cpFallbackColor);
         }
+        this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat));
     }
 
     onClick() {
@@ -141,10 +143,10 @@ export class SliderDirective {
         document.removeEventListener('touchend', this.listenerStop);
     }
 
-    getX(event: any) {
+    getX(event: any): number {        
         return (event.pageX !== undefined ? event.pageX : event.touches[0].pageX) - this.el.nativeElement.getBoundingClientRect().left - window.pageXOffset;
     }
-    getY(event: any) {
+    getY(event: any): number {
         return (event.pageY !== undefined ? event.pageY : event.touches[0].pageY) - this.el.nativeElement.getBoundingClientRect().top - window.pageYOffset;
     }
 }
@@ -249,7 +251,6 @@ export class DialogComponent implements OnInit {
             && event.target != this.directiveElementRef.nativeElement) {
             this.closeColorPicker();
         }
-
     }
 
     closeColorPicker() {
@@ -362,7 +363,7 @@ export class DialogComponent implements OnInit {
         this.update();
     }
 
-    formatPolicy() {
+    formatPolicy(): number {
         this.format = (this.format + 1) % 3;
         if (this.format === 0 && this.hsva.a < 1) {
             this.format++;
@@ -399,7 +400,7 @@ export class DialogComponent implements OnInit {
         this.closeColorPicker();
     }
 
-    isDescendant(parent, child) {
+    isDescendant(parent, child): boolean {
         var node = child.parentNode;
         while (node !== null) {
             if (node === parent) {
@@ -410,7 +411,7 @@ export class DialogComponent implements OnInit {
         return false;
     }
 
-    createBox(element, offset) {
+    createBox(element, offset): any {
         return {
             top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
             left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),

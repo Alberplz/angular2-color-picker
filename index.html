@@ -2,30 +2,14 @@
 <html>
     <head>                
         <title>Angular 2 Color Picker (Demo Page)</title>
+        
         <base href="/angular2-color-picker/">
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 
-        <!-- IE required polyfills, in this exact order -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.26/system-polyfills.js"></script>
-        <script src="https://npmcdn.com/angular2@2.0.0-beta.17/es6/dev/src/testing/shims_for_IE.js"></script>
-        
-        <script src="https://code.angularjs.org/2.0.0-beta.17/angular2-polyfills.js"></script>
-        <script src="https://code.angularjs.org/tools/system.js"></script>
-        <script src="https://npmcdn.com/typescript@1.8.10/lib/typescript.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.17/Rx.js"></script>       
-        <script src="https://code.angularjs.org/2.0.0-beta.17/angular2.dev.js"></script>
-        
-        <!-- IE required polyfills, in this exact order -->
-        <!--<script src="node_modules/es6-shim/es6-shim.min.js"></script>
-        <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-
-        <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-        <script src="node_modules/systemjs/dist/system.src.js"></script>
-        <script src="node_modules/rxjs/bundles/Rx.js"></script>
-        <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-        -->
-        
         <style>
             .col-md-5 > input{
                 margin-bottom: 10px;
@@ -37,21 +21,24 @@
                 cursor: pointer;
             }
         </style>
-        <script>            
-            System.config({
-                transpiler: 'typescript', 
-                typescriptOptions: { emitDecoratorMetadata: true }, 
-                packages: {'app': {defaultExtension: 'ts'}} 
-            });
-            System.import('app/main').then(null, console.error.bind(console));
-        </script>        
-        <style>
-            #changeme{
-                font-size:30px;
-                font-weight: bolder;
-                cursor: pointer;
-            }
-        </style>
+        
+        <script src="https://npmcdn.com/core-js/client/shim.min.js"></script>
+        <script src="https://npmcdn.com/zone.js@0.6.12?main=browser"></script>
+        <script src="https://npmcdn.com/reflect-metadata@0.1.3"></script>
+        <script src="https://npmcdn.com/systemjs@0.19.27/dist/system.src.js"></script>       
+        
+        <!--uncomment to load files locally
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        -->
+        
+        <script src="systemjs.config.js"></script>
+        
+        <script>
+            System.import('app').catch(function(err){ console.error(err); });
+        </script>
     </head>
 
     <body>
