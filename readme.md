@@ -21,7 +21,7 @@ bootstrap(AppComponent, [ColorPickerService]);
 ```
 * Include ColorPickerDirective in your component, and set color the variable:
 ```javascript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ColorPickerDirective} from './color-picker/color-picker.directive'
 
 @Component({
