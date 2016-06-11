@@ -1,0 +1,44 @@
+<div class="color-picker" *ngIf="show" [style.height.px]="cpHeight" [style.top.px]="top" [style.left.px]="left" [style.position]="position">
+    <div class="arrow arrow-{{cpPosition}}" [style.top.px]="arrowTop"></div>    
+
+    <div [slider] [style.background-color]="hueSliderColor" [rgX]="1" [rgY]="1" (newValue)="setSaturationAndBrightness($event)" class="saturation-lightness">
+        <div [style.left.px]="slider.s" [style.top.px]="slider.v" class="cursor"></div>
+    </div>
+
+    <div [slider] [rgX]="1" (newValue)="setHue($event)" class="hue">
+        <div [style.left.px]="slider.h" class="cursor"></div>
+    </div>
+
+    <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" class="alpha">
+        <div [style.left.px]="slider.a" class="cursor"></div>
+    </div>
+
+    <div class="selected-color-background"></div>
+    <div [style.background-color]="outputColor" class="selected-color"></div>
+
+    <div [hidden]="format!=2" class="hsla-text">
+        <input [text] type="number" pattern="[0-9]*" min="0" max="360" [rg]="360" (newValue)="setHue($event)" [value]="hslaText.h"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setSaturation($event)" [value]="hslaText.s"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setLightness($event)" [value]="hslaText.l"/>
+        <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="hslaText.a"/>
+        <div>H</div><div>S</div><div>L</div><div>A</div>
+    </div>
+
+    <div [hidden]="format!=1" class="rgba-text">
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setR($event)" [value]="rgbaText.r"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setG($event)" [value]="rgbaText.g"/>
+        <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setB($event)" [value]="rgbaText.b"/>
+        <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="rgbaText.a"/>
+        <div>R</div><div>G</div><div>B</div><div>A</div>
+    </div>
+
+    <div [hidden]="format!=0" class="hex-text">
+        <input [text] (newValue)="setColorFromString($event)" [value]="hexText"/>
+        <div>Hex</div>
+    </div>
+
+    <div (click)="formatPolicy()" class="type-policy"></div>
+    
+    <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
+
+</div>
