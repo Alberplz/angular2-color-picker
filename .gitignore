@@ -7,3 +7,6 @@ src/typings/*
 src/npm-debug.log
 
 src/angular2-color-picker-2.0.0.tgz
+
+lib/
+lib/*
