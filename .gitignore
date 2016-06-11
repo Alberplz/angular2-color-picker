@@ -1,8 +1,9 @@
-node_modules/*
-nbproject/*
-typings/*
-npm-debug.log
-app/color-picker/.sass-cache/*
-app/.sass-cache/
-create-dist.bat
-.sass-cache/*
+examples/node_modules/*
+examples/typings/*
+examples/npm-debug.log
+
+src/node_modules/*
+src/typings/*
+src/npm-debug.log
+
+src/angular2-color-picker-2.0.0.tgz

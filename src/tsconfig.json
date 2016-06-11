@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "moduleResolution": "node",
         "sourceMap": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -10,5 +9,9 @@
         "noImplicitAny": false,
         "outDir": "../lib",
         "declaration": true
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "typings"
+    ]
 }

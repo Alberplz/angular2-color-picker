@@ -3,7 +3,7 @@ import {ColorPickerDirective} from 'angular2-color-picker/color-picker/color-pic
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'index.html',
+    templateUrl: 'demo.html',
     directives: [ColorPickerDirective]
 })
 

@@ -24,7 +24,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            templateUrl: 'index.html',
+            templateUrl: 'demo.html',
             directives: [color_picker_directive_1.ColorPickerDirective]
         }), 
         __metadata('design:paramtypes', [])
@@ -32,4 +32,3 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
