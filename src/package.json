@@ -4,7 +4,7 @@
     "scripts": {
         "start": "rm -rf ../lib && npm run tsc",
         "postinstall": "typings install",
-        "tsc": "tsc -p src/color-picker",
+        "tsc": "tsc",
         "typings": "typings"
     },
     "license": "MIT",
