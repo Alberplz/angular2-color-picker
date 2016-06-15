@@ -2,9 +2,6 @@ import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContain
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 
-const styleUrls: string[] = ['./color-picker.css'];
-const templateUrl: string = './color-picker.html';
-
 @Directive({
     selector: '[colorPicker]',
     host: {
@@ -153,8 +150,8 @@ export class SliderDirective {
 
 @Component({
     selector: 'color-picker',
-    templateUrl: templateUrl,
-    styleUrls: styleUrls,
+    templateUrl: './color-picker.html',
+    styleUrls: ['./color-picker.css'],
     directives: [SliderDirective, TextDirective]
 })
 export class DialogComponent implements OnInit {

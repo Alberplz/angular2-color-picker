@@ -1,4 +1,4 @@
-import { DynamicComponentLoader, ViewContainerRef, ElementRef, OnInit } from '@angular/core';
+import { DynamicComponentLoader, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { ColorPickerService } from './color-picker.service';
 export declare class ColorPickerDirective implements OnInit {
     private dcl;
@@ -6,7 +6,7 @@ export declare class ColorPickerDirective implements OnInit {
     private el;
     private service;
     colorPicker: string;
-    colorPickerChange: any;
+    colorPickerChange: EventEmitter<string>;
     cpPosition: string;
     cpPositionOffset: string;
     cpPositionRelativeToArrow: boolean;
@@ -25,14 +25,14 @@ export declare class ColorPickerDirective implements OnInit {
     changeInput(value: string): void;
 }
 export declare class TextDirective {
-    newValue: any;
+    newValue: EventEmitter<any>;
     text: any;
     rg: number;
     changeInput(value: string): void;
 }
 export declare class SliderDirective {
     private el;
-    newValue: any;
+    newValue: EventEmitter<any>;
     slider: string;
     rgX: number;
     rgY: number;

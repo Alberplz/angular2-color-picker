@@ -2,11 +2,12 @@ examples/node_modules/*
 examples/typings/*
 examples/npm-debug.log
 
-src/node_modules/*
-src/typings/*
-src/npm-debug.log
+node_modules/*
+typings/*
+npm-debug.log
 
-src/angular2-color-picker-2.0.0.tgz
 
 lib/
 lib/*
+
+.sass-cache
