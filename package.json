@@ -17,19 +17,20 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-	"del": "^2.1.0",
+    "del": "^2.1.0",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.2.0",
     "gulp-inline-ng2-template": "^2.0.4",
-	"gulp-ruby-sass": "^2.0.6",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.6",
     "merge2": "^1.0.2",
+    "node-sass": "^3.8.0",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
   },
   "files": [
-	"lib/*"
-  ]  
+    "lib/*",
+    "index.*"
+  ]
 }
