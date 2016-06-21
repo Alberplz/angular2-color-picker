@@ -3,8 +3,8 @@
     "version": "2.0.0",
     "authors": [
         "Alberto Pujante <alberplz@gmail.com>",
-        "csini@github.com",
-        "vanti1980@gmail.com",
+        "Csini <csini@gmx.com>",
+        "vanti1980 <vanti1980@gmail.com>",
     ],
     "description": "Color Picker Directive for Angular 2 with no dependencies required",
     "main": [
