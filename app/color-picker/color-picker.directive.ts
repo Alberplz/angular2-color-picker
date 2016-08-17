@@ -15,6 +15,7 @@ const templateUrl: string = 'app/color-picker/color-picker.html';
 export class ColorPickerDirective implements OnInit {
     @Input('colorPicker') colorPicker: string;
     @Output('colorPickerChange') colorPickerChange = new EventEmitter<string>();
+    @Output('colorPickerClosed') colorPickerClosed = new EventEmitter<void>();
     @Input('cpPosition') cpPosition: string = 'right';
     @Input('cpPositionOffset') cpPositionOffset: string = '0%';
     @Input('cpPositionRelativeToArrow') cpPositionRelativeToArrow: boolean = false;
@@ -56,6 +57,10 @@ export class ColorPickerDirective implements OnInit {
 
     colorChanged(value: string) {
         this.colorPickerChange.emit(value)
+    }
+
+    pickerClosed() {
+        this.colorPickerClosed.emit()
     }
 
     changeInput(value: string) {
@@ -257,6 +262,7 @@ export class DialogComponent implements OnInit {
         this.show = false;
         document.removeEventListener('mouseup', this.listenerMouseDown);
         window.removeEventListener('resize', this.listenerResize);
+        this.directiveInstance.pickerClosed();
     }
 
     onResize() {
