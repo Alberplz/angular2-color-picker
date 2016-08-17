@@ -262,7 +262,7 @@ export class DialogComponent implements OnInit {
         this.show = false;
         document.removeEventListener('mouseup', this.listenerMouseDown);
         window.removeEventListener('resize', this.listenerResize);
-		this.directiveInstance.pickerClosed();
+        this.directiveInstance.pickerClosed();
     }
 
     onResize() {
