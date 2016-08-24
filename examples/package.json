@@ -1,8 +1,13 @@
 {
-    "name": "angular2-color-picker",
+    "name": "angular2-color-picker-example",
     "version": "1.1.0",
     "scripts": {
-        "postinstall": "gulp"
+        "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+        "lite": "lite-server",
+        "postinstall": "typings install",
+        "tsc": "tsc",
+        "tsc:w": "tsc -w",
+        "typings": "typings"
     },
     "license": "MIT",
     "dependencies": {
@@ -26,21 +31,8 @@
     },
     "devDependencies": {
         "concurrently": "^2.0.0",
-        "del": "^2.2.2",
-        "gulp": "^3.9.1",
-        "gulp-inline-ng2-template": "^3.0.0",
-        "gulp-sass": "^2.3.2",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-typescript": "^2.13.6",
-        "gulp-typings": "^2.0.3",
         "lite-server": "^2.2.0",
-        "run-sequence": "^1.2.2",
         "typescript": "^1.8.10",
         "typings": "^1.0.4"
-    },
-    "files": [
-        "lib/*",
-        "index.*"
-    ]
-
+    }
 }

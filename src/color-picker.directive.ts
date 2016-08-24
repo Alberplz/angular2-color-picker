@@ -2,9 +2,6 @@ import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContain
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 
-const styleUrls: string[] = ['app/color-picker/color-picker.css'];
-const templateUrl: string = 'app/color-picker/color-picker.html';
-
 @Directive({
     selector: '[colorPicker]',
     host: {
@@ -14,7 +11,7 @@ const templateUrl: string = 'app/color-picker/color-picker.html';
 })
 export class ColorPickerDirective implements OnInit {
     @Input('colorPicker') colorPicker: string;
-    @Output('colorPickerChange') colorPickerChange = new EventEmitter<string>();
+    @Output('colorPickerChange') colorPickerChange = new EventEmitter<string>(true);
     @Input('cpPosition') cpPosition: string = 'right';
     @Input('cpPositionOffset') cpPositionOffset: string = '0%';
     @Input('cpPositionRelativeToArrow') cpPositionRelativeToArrow: boolean = false;
@@ -153,8 +150,8 @@ export class SliderDirective {
 
 @Component({
     selector: 'color-picker',
-    templateUrl: templateUrl,
-    styleUrls: styleUrls,
+    templateUrl: './templates/default/color-picker.html',
+    styleUrls: ['./templates/default/color-picker.css'],
     directives: [SliderDirective, TextDirective]
 })
 export class DialogComponent implements OnInit {

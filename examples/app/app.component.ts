@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ColorPickerDirective} from './color-picker/color-picker.directive'
+import {ColorPickerDirective} from 'angular2-color-picker';
 
 @Component({
     selector: 'my-app',
