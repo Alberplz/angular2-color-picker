@@ -6,19 +6,27 @@ This is a Color Picker Directive/Component for Angular 2.
 http://alberplz.github.io/angular2-color-picker/index.html
 
 # Installation
-* Via Git: <br /> git clone https://github.com/Alberplz/angular2-color-picker.git
-* Via Bower: <br /> bower install angular2-color-picker
-* Via Npm: <br /> npm i angular2-color-picker
+npm i --save angular2-color-picker
 
 # Usage
 * Use it in your HTML elements, for example:
 ```html
 <input [(colorPicker)]="color" [style.background]="color" [value]="color"/>
 ```
-* Add ColorPickerService in your main.ts:
+* Or:
+```html
+<input [colorPicker]="color" (colorPickerChange)="color=$event" [style.background]="color" [value]="color"/>
+```
+
+* Add ColorPickerService in your app.module.ts:
 ```javascript
 import {ColorPickerService} from 'angular2-color-picker';
-bootstrap(AppComponent, [ColorPickerService]);
+
+@NgModule({
+    ...
+    providers: [ColorPickerService]
+})
+
 ```
 * Include ColorPickerDirective in your component, and set color the variable:
 ```javascript
@@ -35,11 +43,11 @@ export class AppComponent {
     private color: string = "#127bdc";
 }
 ```
-* System.config.js
+* Configure system.config.js
 ```javascript
 var map = {
         ...    
-        'angular2-color-picker': 'node_modules/angular2-color-picker' //npm installations
+        'angular2-color-picker': 'node_modules/angular2-color-picker'
     };
 var packages = {
         ...
@@ -49,6 +57,7 @@ var packages = {
 #Build
 git clone https://github.com/Alberplz/angular2-color-picker.git<br />
 npm install<br />
+cd agular2-color-picker<br />
 npm run build
 
 #Options

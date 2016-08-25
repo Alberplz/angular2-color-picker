@@ -15,6 +15,12 @@
 &lt;input [(colorPicker)]="color" 
        [style.background]="color"/&gt;
             </pre>            
+            <p>Or:</p>
+            <pre>
+&lt;input [colorPicker]="color" 
+        (colorPickerChange)="color=$event"
+        [style.background]="color"/&gt;
+            </pre>
         </div>
     </div>
 
@@ -139,6 +145,50 @@
        [cpCancelButton]="true"
        [cpHeight]="'310px'"
        [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/&gt;
+            </pre>            
+        </div>
+    </div>
+       
+    <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            
+            <input [colorPicker]="color9" 
+                   (colorPickerChange)="cmyk=onChangeColor($event);color9=$event"
+                [style.background]="color9"/>  
+            
+            <div class="clearfix"></div>
+            
+            <div class="cmyk">
+                <div>
+                    <span style="color:rgb(0,255,255);" [style.font-size.px]="100*cmyk.c">C</span>
+                </div>
+                <div>
+                    <span style="color:rgb(255,0,255)" [style.font-size.px]="100*cmyk.m">M</span>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            
+            <div class="cmyk">    
+                <div>
+                    <span style="color:rgb(255,255,0)" [style.font-size.px]="100*cmyk.y">Y</span>
+                </div>    
+                <div>
+                    <span [style.font-size.px]="100*cmyk.k">K</span>
+                </div>    
+            </div>
+        </div>   
+        <div class="col-md-7">  
+            <p>Change event color:</p>
+            <pre>
+&lt;input [colorPicker]="color" 
+       (colorPickerChange)="cmyk=onChangeColor($event);color=$event"
+       [style.background]="color"/&gt;
+
+&lt;span [style.font-size.px]="100*cmyk.c"/&gt;C&lt;/span/&gt;
+&lt;span [style.font-size.px]="100*cmyk.m"/&gt;M&lt;/span/&gt;
+&lt;span [style.font-size.px]="100*cmyk.y"/&gt;Y&lt;/span/&gt;
+&lt;span [style.font-size.px]="100*cmyk.k"/&gt;K&lt;/span/&gt;
             </pre>            
         </div>
     </div>

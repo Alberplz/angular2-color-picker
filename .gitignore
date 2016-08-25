@@ -1,4 +1,5 @@
 examples/app/*.js
+examples/app/*.js.map
 examples/app/*.d.ts
 
 examples/node_modules/*
