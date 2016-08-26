@@ -3,7 +3,7 @@ Angular 2 Color Picker Directive/Component with no dependencies required.<br />
 This is a Color Picker Directive/Component for Angular 2.
 
 # Demo page
-http://alberplz.github.io/angular2-color-picker/index.html
+http://alberplz.github.io/angular2-color-picker/examples/index.html
 
 # Installation
 npm i --save angular2-color-picker
