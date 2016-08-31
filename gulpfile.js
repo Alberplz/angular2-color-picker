@@ -3,10 +3,13 @@ var del = require('del');
 var tsc = require('gulp-typescript');
 var gulpTypings = require("gulp-typings");
 var sourcemaps = require('gulp-sourcemaps');
-var tscConfig = require('./tsconfig.json');
 var sass = require('gulp-sass');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence');
+
+var tsConfig = ts.createProject('tsconfig.json', {
+  typescript: require('typescript')
+});
 
 gulp.task('clean', function () {
     return del.sync('lib/**/*');
