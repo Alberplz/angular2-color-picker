@@ -13,9 +13,9 @@
         "zone.js": "^0.6.12"
     },
     "devDependencies": {
-        "@type/core-js": "^0.9.32",
-        "@type/jasmine": "^2.2.33",
-        "@type/node": "^6.0.38",
+        "@types/core-js": "^0.9.32",
+        "@types/jasmine": "^2.2.33",
+        "@types/node": "^6.0.38",
         "concurrently": "^2.0.0",
         "del": "^2.2.2",
         "gulp": "^3.9.1",
