@@ -7,7 +7,7 @@ var sass = require('gulp-sass');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence');
 
-var tsConfig = ts.createProject('tsconfig.json', {
+var tscConfig = tsc.createProject('tsconfig.json', {
   typescript: require('typescript')
 });
 
