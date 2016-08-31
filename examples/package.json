@@ -31,6 +31,9 @@
         "bootstrap": "^3.3.6"
     },
     "devDependencies": {
+        "@types/core-js": "^0.9.32",
+        "@types/jasmine": "^2.2.33",
+        "@types/node": "^6.0.38",
         "concurrently": "^2.0.0",
         "lite-server": "^2.2.0",
         "typescript": "^1.8.10",
