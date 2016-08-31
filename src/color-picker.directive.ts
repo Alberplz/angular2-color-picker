@@ -16,6 +16,8 @@ export class ColorPickerDirective implements OnInit {
     @Input('cpPositionOffset') cpPositionOffset: string = '0%';
     @Input('cpPositionRelativeToArrow') cpPositionRelativeToArrow: boolean = false;
     @Input('cpOutputFormat') cpOutputFormat: string = 'hex';
+    @Input('cpPresetLabel') cpPresetLabel: string = 'Preset colors';
+    @Input('cpPresetColors') cpPresetColors: Array<string>;
     @Input('cpCancelButton') cpCancelButton: boolean = false;
     @Input('cpCancelButtonClass') cpCancelButtonClass: string = 'cp-cancel-button-class';
     @Input('cpCancelButtonText') cpCancelButtonText: string = 'Cancel';
@@ -43,7 +45,7 @@ export class ColorPickerDirective implements OnInit {
             this.dcl.loadNextToLocation(DialogComponent, this.vcRef)
                 .then((res) => {
                     res.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
-                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth);
+                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth);
                     this.dialog = res.instance;
                 });
         } else if (this.dialog) {
@@ -179,6 +181,8 @@ export class DialogComponent implements OnInit, AfterViewInit {
     private cpPosition: string;
     private cpPositionOffset: number;
     private cpOutputFormat: string;
+    private cpPresetLabel: string;
+    private cpPresetColors: Array<string>;
     private cpCancelButton: boolean;
     private cpCancelButtonClass: string;
     private cpCancelButtonText: string;
@@ -197,7 +201,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
     constructor(private el: ElementRef, private service: ColorPickerService) { }
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
-        cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string) {
+        cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string) {
         this.directiveInstance = instance;
         this.initialColor = color;
         this.directiveElementRef = elementRef;
@@ -207,6 +211,8 @@ export class DialogComponent implements OnInit, AfterViewInit {
             this.dialogArrowOffset = 0;
         }
         this.cpOutputFormat = cpOutputFormat;
+        this.cpPresetLabel = cpPresetLabel;
+        this.cpPresetColors = cpPresetColors;
         this.cpCancelButton = cpCancelButton;
         this.cpCancelButtonClass = cpCancelButtonClass;
         this.cpCancelButtonText = cpCancelButtonText;

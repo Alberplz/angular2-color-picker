@@ -190,6 +190,21 @@
     </div>
     
     <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input [(colorPicker)]="color" [style.background]="color" [cpPresetColors]="['#fff', '#000']"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>With preset colors:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color"
+       [cpPresetColors]="['#fff', '#000']"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+    <hr>
     <br>
     <div class="row">
         <div class="col-md-12">
@@ -273,6 +288,20 @@
                         <td>
                             <b>'#fff'</b><br>
                             Is used when the color is not well-formed or not defined.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpPresetLabel</td>
+                        <td>
+                            <b>'Preset colors'</b><br>
+                            Label for preset colors if any provided used.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpPresetColors</td>
+                        <td>
+                            <b>[]</b><br>
+                            Array of preset colors to show in the color picker dialog.
                         </td>
                     </tr>
                 </tbody>

@@ -55,6 +55,14 @@
 
     <div (click)="formatPolicy()" class="type-policy"></div>
 
+    <div *ngIf="cpPresetColors && cpPresetColors.length" class="preset-area">
+       <hr>
+
+       <div class="preset-label">{{cpPresetLabel}}</div>
+
+       <div *ngFor="let color of cpPresetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
+    </div>
+
     <div class="button-area">
         <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
     </div>

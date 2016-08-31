@@ -75,6 +75,31 @@
         text-transform: uppercase;
     }
 
+    .preset-area {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        padding: 8px 16px;
+
+        .preset-label {
+            width: 100%;
+            padding: 4px 8px;
+            font-size:11px;
+            text-align: left;
+            color: #555;
+        }
+
+        .preset-color {
+            cursor: pointer;
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 8px;
+            @include boder-radius(25%);
+            border: #a9a9a9 solid 1px;
+        }
+    }
+
     .arrow{
         height: 0;
         width: 0;
