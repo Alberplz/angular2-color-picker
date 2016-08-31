@@ -20,7 +20,7 @@ export class ColorPickerDirective implements OnInit {
     @Input('cpCancelButtonClass') cpCancelButtonClass: string = 'cp-cancel-button-class';
     @Input('cpCancelButtonText') cpCancelButtonText: string = 'Cancel';
     @Input('cpFallbackColor') cpFallbackColor: string = '#fff';
-    @Input('cpHeight') cpHeight: string = '290px';
+    @Input('cpHeight') cpHeight: string = 'auto';
     @Input('cpWidth') cpWidth: string = '230px';
     private dialog: any;
     private created: boolean;
