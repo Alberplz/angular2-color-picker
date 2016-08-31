@@ -110,17 +110,15 @@
             <input [(colorPicker)]="color7" 
                 [style.background]="color7"                   
                 [value]="color7"
-                [cpCancelButton]="true"
-                [cpHeight]="'310px'"/>
+                [cpCancelButton]="true"/>
         </div>   
         <div class="col-md-7">  
-            <p>Show cancel button and change color picker dialog height:</p>
+            <p>Show cancel button:</p>
             <pre>
 &lt;input [(colorPicker)]="color" 
        [style.background]="color" 
        [value]="color"
-       [cpCancelButton]="true"
-       [cpHeight]="'310px'"/&gt;
+       [cpCancelButton]="true"/&gt;
             </pre>            
         </div>
     </div>
@@ -132,7 +130,6 @@
                 [style.background]="color8"                   
                 [value]="color8"
                 [cpCancelButton]="true"
-                [cpHeight]="'310px'"
                 [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/>
         </div>   
         <div class="col-md-7">  
@@ -143,7 +140,6 @@
        [style.background]="color" 
        [value]="color"
        [cpCancelButton]="true"
-       [cpHeight]="'310px'"
        [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/&gt;
             </pre>            
         </div>
@@ -239,10 +235,17 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>cpWidth</td>
+                        <td>                            
+                            <b>'230px'</b><br>
+                            Use this option to set color picker dialog width (pixels).
+                        </td>
+                    </tr>
+                    <tr>
                         <td>cpHeight</td>
                         <td>                            
-                            <b>'290px'</b><br>
-                            Use this option with cpCancelButton to redefine a new color picker dialog height (pixels).
+                            <b>'auto'</b><br>
+                            Use this option to force color picker dialog height (pixels).
                         </td>
                     </tr>
                     <tr>

@@ -192,6 +192,8 @@ export class DialogComponent implements OnInit, AfterViewInit {
     @ViewChild('hueSlider') hueSlider: any;
     @ViewChild('alphaSlider') alphaSlider: any;
 
+    @ViewChild('dialogPopup') dialogElement: any;
+
     constructor(private el: ElementRef, private service: ColorPickerService) { }
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
@@ -253,12 +255,14 @@ export class DialogComponent implements OnInit, AfterViewInit {
 
       this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
 
-      setTimeout(() => {this.update();});
+      setTimeout(() => {
+          this.update();
+      });
     }
 
     openColorPicker() {
         if (!this.show) {
-            this.setDialogPosition();
+          this.setDialogPosition();
             this.show = true;
             document.addEventListener('mousedown', this.listenerMouseDown);
             window.addEventListener('resize', this.listenerResize);
@@ -285,6 +289,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
     }
 
     setDialogPosition() {
+				var dialogHeight = this.dialogElement.nativeElement.offsetHeight;
         var node = this.directiveElementRef.nativeElement, position = 'static';
         let parentNode = null;
         while (node !== null && node.tagName !== 'HTML') {
@@ -311,11 +316,11 @@ export class DialogComponent implements OnInit, AfterViewInit {
         }
         if (this.cpPosition === 'left') {
             this.top += boxDirective.height * this.cpPositionOffset / 100 - this.dialogArrowOffset;
-            this.left -= this.cpWidth + this.dialogArrowSize;
+            this.left -= this.cpWidth + this.dialogArrowSize - 2;
         } else if (this.cpPosition === 'top') {
-            this.top -= this.cpHeight + this.dialogArrowSize;
+            this.top -= dialogHeight + this.dialogArrowSize;
             this.left += this.cpPositionOffset / 100 * boxDirective.width - this.dialogArrowOffset;
-            this.arrowTop = this.cpHeight - 1;
+            this.arrowTop = dialogHeight - 1;
         } else if (this.cpPosition === 'bottom') {
             this.top += boxDirective.height + this.dialogArrowSize;
             this.left += this.cpPositionOffset / 100 * boxDirective.width - this.dialogArrowOffset;
