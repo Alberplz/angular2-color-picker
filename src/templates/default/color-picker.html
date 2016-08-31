@@ -55,7 +55,7 @@
 
     <div (click)="formatPolicy()" class="type-policy"></div>
 
-    <div class="button-area">
-        <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
+    <div *ngIf="cpCancelButton" class="button-area">
+        <button type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
     </div>
 </div>
