@@ -151,8 +151,7 @@ export class SliderDirective {
 @Component({
     selector: 'color-picker',
     templateUrl: './templates/default/color-picker.html',
-    styleUrls: ['./templates/default/color-picker.css'],
-    directives: [SliderDirective, TextDirective]
+    styleUrls: ['./templates/default/color-picker.css']
 })
 export class DialogComponent implements OnInit {
     private hsva: Hsva;
