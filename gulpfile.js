@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var del = require('del');
 var tsc = require('gulp-typescript');
-var gulpTypings = require("gulp-typings");
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var inlineNg2Template = require('gulp-inline-ng2-template');
@@ -20,12 +19,6 @@ gulp.task('copy:assets', function () {
            .pipe(gulp.dest('lib/templates'));
 });
 
-gulp.task("typings",function(){
-    var stream = gulp.src("./typings.json")
-        .pipe(gulpTypings()); 
-    return stream;
-});
-
 gulp.task('sass', function () {
     return gulp.src('src/**/*.scss')
             .pipe(sass())
@@ -34,7 +27,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('compile', function () {
-    var r = gulp.src(['typings/index.d.ts', 'src/**/*.ts'])
+    var r = gulp.src(['src/**/*.ts', 'node_modules/@types/**/*.d.ts'])
             .pipe(inlineNg2Template({base: '/lib'}))
             .pipe(sourcemaps.init())
             .pipe(tsc(tscConfig.compilerOptions))
@@ -46,7 +39,7 @@ gulp.task('compile', function () {
 });
 
 gulp.task('compile:index', function () {
-    var r = gulp.src(['typings/index.d.ts','index.ts'])
+    var r = gulp.src(['index.ts', 'node_modules/@types/**/*.d.ts'])
             .pipe(sourcemaps.init())
             .pipe(tsc(tscConfig.compilerOptions))
     r.dts.pipe(gulp.dest('.'));
@@ -61,7 +54,7 @@ gulp.task('clean:templates', function () {
 });
 
 gulp.task('default', function (callback) {
-    runSequence('clean', 'copy:assets', 'typings', 'sass', 'compile', 'clean:templates', 'compile:index', callback);
+    runSequence('clean', 'copy:assets', 'sass', 'compile', 'clean:templates', 'compile:index', callback);
 });
 
 //copy the library to example/node_modules/angular2-color-picker
