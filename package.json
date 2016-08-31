@@ -13,6 +13,9 @@
         "zone.js": "^0.6.12"
     },
     "devDependencies": {
+        "@type/core-js": "^0.9.32",
+        "@type/jasmine": "^2.2.33",
+        "@type/node": "^6.0.38",
         "concurrently": "^2.0.0",
         "del": "^2.2.2",
         "gulp": "^3.9.1",
@@ -23,7 +26,6 @@
         "gulp-typings": "^2.0.3",
         "lite-server": "^2.2.0",
         "run-sequence": "^1.2.2",
-        "typescript": "^1.8.10",
-        "typings": "^1.0.4"
+        "typescript": "2.0.0"
     }
 }
