@@ -7,8 +7,7 @@ export class Cmyk {
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/demo.html',
-    directives: [ColorPickerDirective]
+    templateUrl: 'app/demo.html'
 })
 
 export class AppComponent {
