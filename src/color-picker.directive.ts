@@ -1,4 +1,4 @@
-import {Component, DynamicComponentLoader, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit} from '@angular/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 
@@ -24,7 +24,7 @@ export class ColorPickerDirective implements OnInit {
     private dialog: any;
     private created: boolean;
 
-    constructor(private dcl: DynamicComponentLoader, private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService) {
+    constructor(private resolver: ComponentFactoryResolver, private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService) {
         this.created = false;
     }
 
@@ -39,12 +39,12 @@ export class ColorPickerDirective implements OnInit {
     onClick() {
         if (!this.created) {
             this.created = true;
-            this.dcl.loadNextToLocation(DialogComponent, this.vcRef)
-                .then((res) => {
-                    res.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
-                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight);
-                    this.dialog = res.instance;
-                });
+            let dialogComponentFactory = this.resolver.resolveComponentFactory(DialogComponent);
+            let dialogComponentRef = this.vcRef.createComponent(dialogComponentFactory, 0);
+            dialogComponentRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
+                this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass,
+                this.cpCancelButtonText, this.cpHeight);
+            this.dialog = dialogComponentRef.instance;
         } else if (this.dialog) {
             this.dialog.setInitialColor(this.colorPicker);
             this.dialog.openColorPicker();
@@ -52,12 +52,12 @@ export class ColorPickerDirective implements OnInit {
     }
 
     colorChanged(value: string) {
-        this.colorPickerChange.emit(value)
+        this.colorPickerChange.emit(value);
     }
 
     changeInput(value: string) {
-        this.dialog.setColorFromString(value)
-        this.colorPickerChange.emit(value)
+        this.dialog.setColorFromString(value);
+        this.colorPickerChange.emit(value);
     }
 }
 
@@ -77,7 +77,7 @@ export class TextDirective {
         if (this.rg === undefined) {
             this.newValue.emit(value);
         } else {
-            let numeric = parseFloat(value)
+            let numeric = parseFloat(value);
             if (!isNaN(numeric) && numeric >= 0 && numeric <= this.rg) {
                 this.newValue.emit({ v: numeric, rg: this.rg });
             }
@@ -151,8 +151,7 @@ export class SliderDirective {
 @Component({
     selector: 'color-picker',
     templateUrl: './templates/default/color-picker.html',
-    styleUrls: ['./templates/default/color-picker.css'],
-    directives: [SliderDirective, TextDirective]
+    styleUrls: ['./templates/default/color-picker.css']
 })
 export class DialogComponent implements OnInit {
     private hsva: Hsva;
