@@ -18,25 +18,24 @@ npm i --save angular2-color-picker
 <input [colorPicker]="color" (colorPickerChange)="color=$event" [style.background]="color" [value]="color"/>
 ```
 
-* Add ColorPickerService in your app.module.ts:
+* Add ColorPickerModule in your app.module.ts:
 ```javascript
-import {ColorPickerService} from 'angular2-color-picker';
+import {ColorPickerModule} from 'angular2-color-picker';
 
 @NgModule({
     ...
-    providers: [ColorPickerService]
+    imports: [ColorPickerService]
 })
 
 ```
-* Include ColorPickerDirective in your component, and set color the variable:
+* Set the color variable:
 ```javascript
 import {Component} from '@angular/core';
 import {ColorPickerDirective} from 'angular2-color-picker';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/demo.html',
-    directives: [ColorPickerDirective]
+    templateUrl: 'app/demo.html'
 })
 
 export class AppComponent {
