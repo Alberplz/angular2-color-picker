@@ -1,7 +1,7 @@
-import { DynamicComponentLoader, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { ColorPickerService } from './color-picker.service';
 export declare class ColorPickerDirective implements OnInit {
-    private dcl;
+    private resolver;
     private vcRef;
     private el;
     private service;
@@ -18,7 +18,7 @@ export declare class ColorPickerDirective implements OnInit {
     cpHeight: string;
     private dialog;
     private created;
-    constructor(dcl: DynamicComponentLoader, vcRef: ViewContainerRef, el: ElementRef, service: ColorPickerService);
+    constructor(resolver: ComponentFactoryResolver, vcRef: ViewContainerRef, el: ElementRef, service: ColorPickerService);
     ngOnInit(): void;
     onClick(): void;
     colorChanged(value: string): void;
