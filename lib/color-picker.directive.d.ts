@@ -12,6 +12,8 @@ export declare class ColorPickerDirective implements OnInit {
     cpPositionOffset: string;
     cpPositionRelativeToArrow: boolean;
     cpOutputFormat: string;
+    cpPresetLabel: string;
+    cpPresetColors: Array<string>;
     cpCancelButton: boolean;
     cpCancelButtonClass: string;
     cpCancelButtonText: string;
@@ -73,6 +75,8 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     private cpPosition;
     private cpPositionOffset;
     private cpOutputFormat;
+    private cpPresetLabel;
+    private cpPresetColors;
     private cpCancelButton;
     private cpCancelButtonClass;
     private cpCancelButtonText;
@@ -85,7 +89,7 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     alphaSlider: any;
     dialogElement: any;
     constructor(el: ElementRef, service: ColorPickerService);
-    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string): void;
+    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string): void;
     updateDialog(color: any, cpHeight: string, cpWidth: string): void;
     setInitialColor(color: any): void;
     ngOnInit(): void;
