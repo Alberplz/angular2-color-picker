@@ -1,15 +1,17 @@
 {
     "name": "angular2-color-picker",
     "description": "Angular 2 Color Picker Directive, no dependences required.",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "main": "index.js",
     "scripts": {       
         "build": "gulp"
     },
     "license": "MIT",
     "dependencies": {
-        "@angular/core": "2.0.0-rc.5",
-        "rxjs": "5.0.0-beta.6",
+        "@angular/common": "2.0.0-rc.6",
+        "@angular/core": "2.0.0-rc.6",
+        "@angular/platform-browser": "2.0.0-rc.6",
+        "rxjs": "5.0.0-beta.11",
         "zone.js": "^0.6.12"
     },
     "devDependencies": {

@@ -1,7 +1,7 @@
 {
     "name": "angular2-color-picker-example",
     "description": "Example for Angular2 Color Picker",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "scripts": {
         "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
         "lite": "lite-server",
