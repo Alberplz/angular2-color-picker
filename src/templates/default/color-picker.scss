@@ -66,7 +66,7 @@
     }
 
     .button-area{
-        padding: 8px 32px 16px 32px;
+        padding: 0 16px 16px 16px;
         text-align: right;
     }
 
@@ -140,7 +140,7 @@
 
     .box{
         display: flex;
-        padding: 8px 16px;
+        padding: 4px 8px;
 
         .left{
             position: relative;
@@ -148,7 +148,7 @@
         }
         .right{
             flex: 1 1 auto;
-            padding: 12px;
+            padding: 12px 8px;
         }
     }
 
@@ -157,7 +157,7 @@
         width: 100%;
         height: 16px;
         border:none;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
 				background-size: 100%;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAQCAYAAAD06IYnAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIWDwkUFWbCCAAAAFxJREFUaN7t0kEKg0AQAME2x83/n2qu5qCgD1iDhCoYdpnbQC9bbY1qVO/jvc6k3ad91s7/7F1/csgPrujuQ17BDYSFsBAWwgJhISyEBcJCWAgLhIWwEBYIi2f7Ar/1TCgFH2X9AAAAAElFTkSuQmCC');
     }
@@ -188,8 +188,8 @@
 
     .type-policy{
         position: absolute;
-        top: 225px;
-        right: 8px;
+        top: 215px;
+        right: 12px;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAgCAYAAAAffCjxAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACewAAAnsB01CO3AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIASURBVEiJ7ZY9axRRFIafsxMStrLQJpAgpBFhi+C9w1YSo00I6RZ/g9vZpBf/QOr4GyRgkSKNSrAadsZqQGwCkuAWyRZJsySwvhZ7N/vhzrgbLH3Ld8597jlzz50zJokyxXH8DqDVar0qi6v8BbItqSGpEcfxdlmsFWXkvX8AfAVWg3UKPEnT9GKujMzsAFgZsVaCN1VTQd77XUnrgE1kv+6935268WRpzrnHZvYRWC7YvC3pRZZl3wozqtVqiyH9IgjAspkd1Gq1xUJQtVrdB9ZKIAOthdg/Qc65LUk7wNIMoCVJO865rYFhkqjX6/d7vV4GPJwBMqofURS5JEk6FYBer/eeYb/Mo9WwFnPOvQbeAvfuAAK4BN4sAJtAG/gJIElmNuiJyba3EGNmZiPeZuEVmVell/Y/6N+CzDn3AXhEOOo7Hv/3BeAz8IzQkMPnJbuPx1wC+yYJ7/0nYIP5S/0FHKdp+rwCEEXRS/rf5Hl1Gtb2M0iSpCOpCZzPATmX1EySpHMLAsiy7MjMDoHrGSDXZnaYZdnRwBh7J91utwmczAA6CbG3GgPleX4jqUH/a1CktqRGnuc3hSCAMB32gKspkCtgb3KCQMmkjeP4WNJThrNNZval1WptTIsv7JtQ4tmIdRa8qSoEpWl6YWZNoAN0zKxZNPehpLSBZv2t+Q0CJ9lLnARQLAAAAABJRU5ErkJggg==');
         background-repeat: no-repeat;
         background-position: center;
@@ -204,8 +204,9 @@
     .hsla-text, .rgba-text{
         width: 100%;
         font-size:11px;
+        padding: 4px 8px;
         .box{
-            padding: 2px 28px;
+						padding: 0 24px 4px 8px;
             input{
                 min-width: 0;
                 flex: 1;
@@ -235,8 +236,9 @@
     .hex-text{
         width: 100%;
         font-size: 11px;
+        padding: 4px 8px;
         .box{
-            padding: 2px 28px;
+						padding: 0 24px 4px 8px;
             input{
                 flex: 1 1 auto;
                 border: #a9a9a9 solid 1px;
