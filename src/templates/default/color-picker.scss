@@ -76,11 +76,11 @@
     }
 
     .preset-area {
-        padding: 8px 16px;
+        padding: 4px 15px;
 
         .preset-label {
             width: 100%;
-            padding: 4px 8px;
+            padding: 4px;
             font-size:11px;
             text-align: left;
             color: #555;
@@ -89,9 +89,9 @@
         .preset-color {
             cursor: pointer;
             display: inline-block;
-            width: 16px;
-            height: 16px;
-            margin: 8px;
+            width: 18px;
+            height: 18px;
+            margin: 4px 6px 8px 6px;
             @include boder-radius(25%);
             border: #a9a9a9 solid 1px;
         }
