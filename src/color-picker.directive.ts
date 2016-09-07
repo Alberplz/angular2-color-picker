@@ -48,7 +48,7 @@ export class ColorPickerDirective implements OnInit {
                     const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
                     const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
                     cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
-                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight);
+                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth);
                     this.dialog = cmpRef.instance;
                 });
         } else if (this.dialog) {
