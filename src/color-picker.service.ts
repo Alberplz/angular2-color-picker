@@ -154,9 +154,12 @@ export class ColorPickerService {
                     let hsla = this.hsva2hsla(hsva);
                     let hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
                     return 'hsla(' + hslaText.h + ',' + hslaText.s + '%,' + hslaText.l + '%,' + hslaText.a + ')';
-                default:
+                case 'rgba':
                     let rgba = this.denormalizeRGBA(this.hsvaToRgba(hsva));
                     return 'rgba(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ',' + Math.round(rgba.a * 100) / 100 + ')';
+                default:
+                    return this.hexText(this.denormalizeRGBA(this.hsvaToRgba(hsva)));
+
             }
         } else {
             switch (outputFormat) {
@@ -178,6 +181,10 @@ export class ColorPickerService {
         if (hexText[1] === hexText[2] && hexText[3] === hexText[4] && hexText[5] === hexText[6]) {
             hexText = '#' + hexText[1] + hexText[3] + hexText[5];
         }
+        if(rgba.a < 1){
+            hexText += Math.round(rgba.a * 255).toString(16);
+        }
+        
         return hexText;
     }
 
