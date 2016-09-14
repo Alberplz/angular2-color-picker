@@ -1,14 +1,12 @@
-examples/app/*.js
-examples/app/*.js.map
-examples/app/*.d.ts
+**/*.js
+**/*.js.map
+**/*.d.ts
 
-examples/node_modules/*
-examples/typings/*
-examples/npm-debug.log
+**/node_modules/*
+**/typings/*
+**/npm-debug.log
 
-node_modules/*
-typings/*
-npm-debug.log
+lib/*
 
 .sass-cache
 nbproject/*
