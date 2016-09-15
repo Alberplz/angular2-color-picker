@@ -6,7 +6,9 @@ This is a Color Picker Directive/Component for Angular 2.
 http://alberplz.github.io/angular2-color-picker/examples/index.html
 
 # Installation
+```bash
 npm i --save angular2-color-picker
+```
 
 # Usage
 * Use it in your HTML elements, for example:
@@ -55,10 +57,12 @@ var packages = {
     };
 ```
 #Build
-git clone https://github.com/Alberplz/angular2-color-picker.git<br />
-npm install<br />
-cd agular2-color-picker<br />
+```bash
+git clone https://github.com/Alberplz/angular2-color-picker.git
+npm install
+cd angular2-color-picker
 npm run build
+```
 
 #Options
 Default option is the first item.
