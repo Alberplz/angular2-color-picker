@@ -9,7 +9,7 @@ var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence');
 
 gulp.task('clean', function () {
-    return del.sync('lib/**/*');
+    return del.sync(['index.+(js|js.map|d.ts)', 'lib/**/*']);
 });
 
 gulp.task('copy:assets', function () {
@@ -19,7 +19,7 @@ gulp.task('copy:assets', function () {
 
 gulp.task("typings",function(){
     var stream = gulp.src("./typings.json")
-        .pipe(gulpTypings()); 
+        .pipe(gulpTypings());
     return stream;
 });
 
@@ -37,7 +37,7 @@ gulp.task('compile', function () {
             .pipe(tsc(tscConfig.compilerOptions))
     r.dts.pipe(gulp.dest('lib'));
     r.js.pipe(gulp.dest('lib'));
-    
+
     return r.pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('lib'));
 });
@@ -48,7 +48,7 @@ gulp.task('compile:index', function () {
             .pipe(tsc(tscConfig.compilerOptions))
     r.dts.pipe(gulp.dest('.'));
     r.js.pipe(gulp.dest('.'));
-    
+
     return r.pipe(sourcemaps.write('.'))
             .pipe(gulp.dest('.'));
 });
@@ -68,7 +68,7 @@ gulp.task('fake', function (callback) {
 
 gulp.task('copy:fake', function () {
     return gulp.src(['lib/**/*'])
-           .pipe(gulp.dest('examples/node_modules/angular2-color-picker/lib'));           
+           .pipe(gulp.dest('examples/node_modules/angular2-color-picker/lib'));
 });
 
 gulp.task('copy:index', function () {

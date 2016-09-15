@@ -8,6 +8,6 @@ import {ColorPickerDirective} from './color-picker.directive';
     imports: [CommonModule],
     providers: [ColorPickerService],
     declarations: [ColorPickerDirective],
-    exports: [CommonModule, ColorPickerDirective]
+    exports: [ColorPickerDirective]
 })
 export class ColorPickerModule {}
