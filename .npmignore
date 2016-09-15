@@ -1,13 +1,10 @@
-examples/app/*.js
-examples/app/*.d.ts
+examples
+node_modules
+typings
 
-examples/node_modules/*
-examples/typings/*
-examples/npm-debug.log
-
-node_modules/*
-typings/*
+_config.yml
 npm-debug.log
+typings.json
 
 .sass-cache
 nbproject/*
