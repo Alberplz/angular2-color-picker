@@ -33,6 +33,7 @@ gulp.task('sass', function () {
 gulp.task('compile', function () {
     var r = gulp.src(['typings/index.d.ts', 'src/**/*.ts'])
             .pipe(inlineNg2Template({base: '/lib'}))
+            .pipe(gulp.dest('lib'))
             .pipe(sourcemaps.init())
             .pipe(tsc(tscConfig.compilerOptions))
     r.dts.pipe(gulp.dest('lib'));
