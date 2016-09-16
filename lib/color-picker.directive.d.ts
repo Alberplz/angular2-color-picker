@@ -138,5 +138,5 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     update(): void;
     cancelColor(): void;
     isDescendant(parent: any, child: any): boolean;
-    createBox(element: any, offset: any): any;
+    createBox(element: any, offset: boolean): any;
 }

@@ -34,7 +34,7 @@ export class ColorPickerDirective implements OnInit {
     }
 
     ngOnInit() {
-        var hsva = this.service.stringToHsva(this.colorPicker);
+        let hsva = this.service.stringToHsva(this.colorPicker);
         if (hsva == null) {
             hsva = this.service.stringToHsva(this.cpFallbackColor);
         }
@@ -299,9 +299,9 @@ export class DialogComponent implements OnInit, AfterViewInit {
     }
 
     setDialogPosition() {
-				var dialogHeight = this.dialogElement.nativeElement.offsetHeight;
-        var node = this.directiveElementRef.nativeElement, position = 'static';
-        let parentNode = null;
+        let dialogHeight = this.dialogElement.nativeElement.offsetHeight;
+        let node = this.directiveElementRef.nativeElement, position = 'static';
+        let parentNode: any = null;
         while (node !== null && node.tagName !== 'HTML') {
             position = window.getComputedStyle(node).getPropertyValue("position");
             if (position !== 'static' && parentNode === null) {
@@ -315,7 +315,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
         if (position !== 'fixed') {
             var boxDirective = this.createBox(this.directiveElementRef.nativeElement, true);
             if (parentNode === null) { parentNode = node }
-            let boxParent = this.createBox(parentNode, true);
+            var boxParent = this.createBox(parentNode, true);
             this.top = boxDirective.top - boxParent.top;
             this.left = boxDirective.left - boxParent.left;
         } else {
@@ -434,8 +434,8 @@ export class DialogComponent implements OnInit, AfterViewInit {
         this.closeColorPicker();
     }
 
-    isDescendant(parent, child): boolean {
-        var node = child.parentNode;
+    isDescendant(parent: any, child: any): boolean {
+        let node: any = child.parentNode;
         while (node !== null) {
             if (node === parent) {
                 return true;
@@ -445,7 +445,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
         return false;
     }
 
-    createBox(element, offset): any {
+    createBox(element: any, offset: boolean): any {
         return {
             top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
             left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
