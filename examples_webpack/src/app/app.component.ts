@@ -23,6 +23,12 @@ export class AppComponent {
     private color7: string = "#f200bd";
     private color8: string = "#a8ff00";
     private color9: string = "#3b4da1";
+    private color10: string = "#f03164";
+    private color11: string = "#00f";
+    private color12: string = "#f200bd";
+    private toggle: boolean;
+    private toggle2: boolean;
+    private lastColor = '#ff0';
     private cmyk: Cmyk = new Cmyk(0, 0, 0, 0);
 
     onChangeColor(color: string): Cmyk {

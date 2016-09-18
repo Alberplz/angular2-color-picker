@@ -17,3 +17,24 @@
     font-weight: bolder;
     text-shadow: 1px 1px 2px #bbb;
 }    
+
+#color-comparator button{ 
+    height: 26px;
+    width: 26px;
+    display: block;
+    float:left;
+    border:none;
+    margin:0;
+    padding:0;
+    border: 2px solid #888;
+}
+
+#color-comparator input{ 
+    height: 26px;
+    width: 182px;
+    display: block;
+    float:left;
+    border:none;
+    margin:0;
+    padding:0;
+}

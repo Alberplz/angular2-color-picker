@@ -103,7 +103,7 @@
             </pre>            
         </div>
     </div>
-    
+
     <hr>
     <div class="row" > 
         <div class="col-md-5" >
@@ -122,8 +122,8 @@
             </pre>            
         </div>
     </div>
-    
-       <hr>
+
+    <hr>
     <div class="row" > 
         <div class="col-md-5" >
             <input [(colorPicker)]="color8" 
@@ -144,17 +144,17 @@
             </pre>            
         </div>
     </div>
-       
+
     <hr>
     <div class="row">         
         <div class="col-md-5">
-            
+
             <input [colorPicker]="color9" 
-                   (colorPickerChange)="cmyk=onChangeColor($event);color9=$event"
+                (colorPickerChange)="cmyk=onChangeColor($event);color9=$event"
                 [style.background]="color9"/>  
-            
+
             <div class="clearfix"></div>
-            
+
             <div class="cmyk">
                 <div>
                     <span style="color:rgb(0,255,255);" [style.font-size.px]="100*cmyk.c">C</span>
@@ -164,7 +164,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            
+
             <div class="cmyk">    
                 <div>
                     <span style="color:rgb(255,255,0)" [style.font-size.px]="100*cmyk.y">Y</span>
@@ -173,6 +173,8 @@
                     <span [style.font-size.px]="100*cmyk.k">K</span>
                 </div>    
             </div>
+            <div class="clearfix"></div>
+            
         </div>   
         <div class="col-md-7">  
             <p>Change event color:</p>
@@ -188,11 +190,11 @@
             </pre>            
         </div>
     </div>
-    
+
     <hr>
     <div class="row">         
         <div class="col-md-5">
-            <input [(colorPicker)]="color" [style.background]="color" [cpPresetColors]="['#fff', '#000']"/>
+            <input [(colorPicker)]="color10" [style.background]="color10" [cpPresetColors]="['#fff', '#000']"/>
         </div>   
         <div class="col-md-7">  
             <p>With preset colors:</p>
@@ -203,7 +205,63 @@
             </pre>            
         </div>
     </div>
+    
+    <hr>
+    <div class="row">         
+        <div id="color-comparator" class="col-md-5">
+            <button (click)="toggle=true;lastColor=color11" 
+                    [style.background]="lastColor" 
+                    #ignoredElement></button>
+            <input [(colorPicker)]="color11"                
+                [(cpToggle)]="toggle" 
+                [style.background]="color11" 
+                [cpIgnoredElements]="[ignoredElement]"/>             
+            <div class="clearfix"></div>
+            <br>
+            <div><b>Toggle status: {{toggle}}</b></div>
+        </div>   
+        <div class="col-md-7">  
+            <p>Control color picker dialog with cpToggle:</p>
+            <pre>
+&lt;button (click)="toggle=true;lastColor=color"  
+         [style.background]="lastColor"
+         #ignoredElement&gt;&lt;/button&gt;
 
+&lt;input [(colorPicker)]="color"
+       [(cpToggle)]="toggle"
+       [style.background]="color"
+       [cpIgnoredElements]="[ignoredElement]"/&gt;       
+            </pre>            
+        </div>
+    </div>
+    
+        <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input #ignoredInput [(colorPicker)]="color12"                
+                [(cpToggle)]="toggle2" 
+                [style.background]="color12" 
+                [cpIgnoredElements]="[ignoredButton, ignoredInput]"/>             
+            <div class="clearfix"></div>          
+            <button class="btn btn-primary" 
+                    (click)="toggle2=!toggle2;" #ignoredButton>Toggle</button>
+            <br><br>
+            <div><b>Toggle status: {{toggle2}}</b></div>
+        </div>  
+        <div class="col-md-7">  
+            <p>Use cpToggle with cpIgnoredElements:</p>
+            <pre>
+&lt;input #ignoredInput [(colorPicker)]="color"
+       [(cpToggle)]="toggle"
+       [style.background]="color"
+       [cpIgnoredElements]="[ignoredButton, ignoredInput]"/&gt;
+
+&lt;button (click)="toggle=!toggle;lastColor=color"  
+         #ignoredButton&gt;&lt;/button&gt;    
+            </pre>            
+        </div>
+    </div>
+        
     <hr>
     <br>
     <div class="row">
@@ -302,6 +360,20 @@
                         <td>
                             <b>[]</b><br>
                             Array of preset colors to show in the color picker dialog.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpToggle</td>
+                        <td>
+                            <b>false</b>, true<br>
+                            Input/ouput to open/close the color picker.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpIgnoredElements</td>
+                        <td>
+                            <b>[]</b><br>
+                            Array of HTML elements that will be ignored by the color picker when they are clicked.
                         </td>
                     </tr>
                 </tbody>
