@@ -29,6 +29,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpHeight') cpHeight: string = 'auto';
     @Input('cpWidth') cpWidth: string = '230px';
     @Input('cpIgnoredElements') cpIgnoredElements: any = [];
+    @Input('cpAlpha') cpAlpha: boolean = true;
     private dialog: any;
     private created: boolean;
 
@@ -67,7 +68,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
                     const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
                     cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
                         this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
-                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth, this.cpIgnoredElements);
+                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth, this.cpIgnoredElements, this.cpAlpha);
                     this.dialog = cmpRef.instance;
                 });
         } else if (this.dialog) {
@@ -214,6 +215,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
     private cpHeight: number;
     private cpWidth: number;
     private cpIgnoredElements: any;
+    private cpAlpha: boolean;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
@@ -228,7 +230,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
         cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>,
-        cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any) {
+        cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any, cpAlpha: boolean) {
         this.directiveInstance = instance;
         this.initialColor = color;
         this.directiveElementRef = elementRef;
@@ -246,6 +248,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
         this.cpHeight = parseInt(cpHeight);
         this.cpWidth = parseInt(cpWidth);
         this.cpIgnoredElements = cpIgnoredElements;
+        this.cpAlpha = cpAlpha;
     }
 
     updateDialog(color: any, cpHeight: string, cpWidth: string) {
