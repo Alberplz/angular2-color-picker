@@ -29,6 +29,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpHeight') cpHeight: string = 'auto';
     @Input('cpWidth') cpWidth: string = '230px';
     @Input('cpIgnoredElements') cpIgnoredElements: any = [];
+    @Input('cpAlpha') cpAlpha: boolean = true;
     private dialog: any;
     private created: boolean;
 
@@ -67,7 +68,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
                     const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
                     cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
                         this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
-                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth, this.cpIgnoredElements);
+                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpHeight, this.cpWidth, this.cpIgnoredElements, this.cpAlpha);
                     this.dialog = cmpRef.instance;
                 });
         } else if (this.dialog) {
@@ -195,8 +196,8 @@ export class SliderDirective {
                       <div [style.left.px]="slider.h" class="cursor"></div>
                   </div>
 
-                  <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" class="alpha" #alphaSlider>
-                      <div [style.left.px]="slider.a" class="cursor"></div>
+                  <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" [class.alpha]="cpAlpha" #alphaSlider>
+                      <div *ngIf="cpAlpha" [style.left.px]="slider.a" class="cursor"></div>
                   </div>
               </div>
           </div>
@@ -206,10 +207,10 @@ export class SliderDirective {
                   <input [text] type="number" pattern="[0-9]*" min="0" max="360" [rg]="360" (newValue)="setHue($event)" [value]="hslaText.h"/>
                   <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setSaturation($event)" [value]="hslaText.s"/>
                   <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setLightness($event)" [value]="hslaText.l"/>
-                  <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="hslaText.a"/>
+                  <input *ngIf="cpAlpha" [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="hslaText.a"/>
               </div>
               <div class="box">
-                  <div>H</div><div>S</div><div>L</div><div>A</div>
+                  <div>H</div><div>S</div><div>L</div><div *ngIf="cpAlpha">A</div>
               </div>
           </div>
 
@@ -218,10 +219,10 @@ export class SliderDirective {
                   <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setR($event)" [value]="rgbaText.r"/>
                   <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setG($event)" [value]="rgbaText.g"/>
                   <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setB($event)" [value]="rgbaText.b"/>
-                  <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="rgbaText.a"/>
+                  <input *ngIf="cpAlpha" [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="rgbaText.a"/>
               </div>
               <div class="box">
-                  <div>R</div><div>G</div><div>B</div><div>A</div>
+                  <div>R</div><div>G</div><div>B</div><div *ngIf="cpAlpha">A</div>
               </div>
           </div>
 
@@ -286,6 +287,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
     private cpHeight: number;
     private cpWidth: number;
     private cpIgnoredElements: any;
+    private cpAlpha: boolean;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
@@ -300,7 +302,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
         cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>,
-        cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any) {
+        cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any, cpAlpha: boolean) {
         this.directiveInstance = instance;
         this.initialColor = color;
         this.directiveElementRef = elementRef;
@@ -318,6 +320,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
         this.cpHeight = parseInt(cpHeight);
         this.cpWidth = parseInt(cpWidth);
         this.cpIgnoredElements = cpIgnoredElements;
+        this.cpAlpha = cpAlpha;
     }
 
     updateDialog(color: any, cpHeight: string, cpWidth: string) {

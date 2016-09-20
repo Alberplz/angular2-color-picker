@@ -14,8 +14,8 @@
                 <div [style.left.px]="slider.h" class="cursor"></div>
             </div>
 
-            <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" class="alpha" #alphaSlider>
-                <div [style.left.px]="slider.a" class="cursor"></div>
+            <div [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" [class.alpha]="cpAlpha" #alphaSlider>
+                <div *ngIf="cpAlpha" [style.left.px]="slider.a" class="cursor"></div>
             </div>
         </div>
     </div>
@@ -25,10 +25,10 @@
             <input [text] type="number" pattern="[0-9]*" min="0" max="360" [rg]="360" (newValue)="setHue($event)" [value]="hslaText.h"/>
             <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setSaturation($event)" [value]="hslaText.s"/>
             <input [text] type="number" pattern="[0-9]*" min="0" max="100" [rg]="100" (newValue)="setLightness($event)" [value]="hslaText.l"/>
-            <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="hslaText.a"/>
+            <input *ngIf="cpAlpha" [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="hslaText.a"/>
         </div>
         <div class="box">
-            <div>H</div><div>S</div><div>L</div><div>A</div>
+            <div>H</div><div>S</div><div>L</div><div *ngIf="cpAlpha">A</div>
         </div>
     </div>
 
@@ -37,10 +37,10 @@
             <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setR($event)" [value]="rgbaText.r"/>
             <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setG($event)" [value]="rgbaText.g"/>
             <input [text] type="number" pattern="[0-9]*" min="0" max="255" [rg]="255" (newValue)="setB($event)" [value]="rgbaText.b"/>
-            <input [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="rgbaText.a"/>
+            <input *ngIf="cpAlpha" [text] type="number" pattern="[0-9]+([\.,][0-9]{1,2})?" min="0" max="1" step="0.1" [rg]="1" (newValue)="setAlpha($event)" [value]="rgbaText.a"/>
         </div>
         <div class="box">
-            <div>R</div><div>G</div><div>B</div><div>A</div>
+            <div>R</div><div>G</div><div>B</div><div *ngIf="cpAlpha">A</div>
         </div>
     </div>
 
