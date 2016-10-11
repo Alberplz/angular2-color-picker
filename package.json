@@ -16,6 +16,9 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.32",
+    "@types/jasmine": "^2.2.33",
+    "@types/node": "^6.0.38",
     "concurrently": "^2.2.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
@@ -27,8 +30,7 @@
     "gulp-uglify": "^2.0.0",
     "lite-server": "^2.2.2",
     "run-sequence": "^1.2.2",
-    "typescript": "^2.0.2",
-    "typings": "^1.3.2"
+    "typescript": "^2.0.2"
   },
   "files":[
       "lib/*",
