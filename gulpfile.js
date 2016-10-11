@@ -27,7 +27,7 @@ gulp.task('createts', function () {
             .pipe(gulp.dest('lib'));
 });
 
-gulp.task('compile', function () {
+gulp.task('compile:lib', function () {
     var r = gulp.src(['lib/**/*.ts', 'node_modules/@types/!(vinyl)/*.d.ts'])
             .pipe(sourcemaps.init())
             .pipe(tsc(tscConfig));
