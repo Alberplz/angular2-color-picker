@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {ColorPickerDirective, ColorPickerService, Rgba} from 'angular2-color-picker';
+import { Component } from '@angular/core';
+import '../../public/css/styles.css';
+import {ColorPickerService, Rgba} from 'angular2-color-picker/lib';
 
 export class Cmyk {
     constructor(public c: number, public m: number, public y: number, public k: number) { }
@@ -7,9 +8,9 @@ export class Cmyk {
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/demo.html'
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
     constructor(private cpService: ColorPickerService) { }
 

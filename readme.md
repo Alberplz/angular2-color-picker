@@ -68,10 +68,13 @@ Default option is the first item.
 [cpPositionOffset]="'0%'"
 [cpPositionRelativeToArrow]="false, true"
 [cpCancelButton]="false, true"
+[cpWidth]="'230px'"
 [cpHeight]="'290px'"
 [cpCancelButtonClass]="'cp-cancel-button-class'"
 [cpCancelButtonText]="'Cancel'"
 [cpFallbackColor]="'#fff'"
+[cpPresetLabel]="'Preset colors'"
+[cpPresetColors]="[]", e.g: "['#fff', '#000']"
 ```
 
 #Extra content

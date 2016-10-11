@@ -1,31 +1,40 @@
 {
-    "name": "angular2-color-picker",
-    "description": "Angular 2 Color Picker Directive, no dependences required.",
-    "version": "1.1.1",
-    "main": "index.js",
-    "scripts": {       
-        "build": "gulp"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@angular/core": "2.0.0-rc.5",
-        "rxjs": "5.0.0-beta.6",
-        "zone.js": "^0.6.12"
-    },
-    "devDependencies": {
-        "@types/core-js": "^0.9.32",
-        "@types/jasmine": "^2.2.33",
-        "@types/node": "^6.0.38",
-        "concurrently": "^2.0.0",
-        "del": "^2.2.2",
-        "gulp": "^3.9.1",
-        "gulp-inline-ng2-template": "^3.0.0",
-        "gulp-sass": "^2.3.2",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-typescript": "^2.13.6",
-        "gulp-typings": "^2.0.3",
-        "lite-server": "^2.2.0",
-        "run-sequence": "^1.2.2",
-        "typescript": "2.0.0"
-    }
+  "name": "angular2-color-picker",
+  "description": "Angular 2 Color Picker Directive, no dependences required.",
+  "version": "1.2.1",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp"
+  },
+  "prepublish": "gulp",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/common": "2.0.0",
+    "@angular/core": "2.0.0",
+    "@angular/platform-browser": "2.0.0",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.23"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.32",
+    "@types/jasmine": "^2.2.33",
+    "@types/node": "^6.0.38",
+    "concurrently": "^2.2.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-inline-ng2-template": "^3.0.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.13.6",
+    "gulp-typings": "^2.0.4",
+    "gulp-uglify": "^2.0.0",
+    "lite-server": "^2.2.2",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.0.2"
+  },
+  "files":[
+      "lib/*",
+      "index.d.ts",
+      "index.ts"
+  ]
 }

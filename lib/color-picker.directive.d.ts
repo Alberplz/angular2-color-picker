@@ -1,28 +1,38 @@
-import { DynamicComponentLoader, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { OnChanges, ViewContainerRef, ElementRef, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
 import { ColorPickerService } from './color-picker.service';
-export declare class ColorPickerDirective implements OnInit {
-    private dcl;
+import { Compiler } from '@angular/core';
+export declare class ColorPickerDirective implements OnInit, OnChanges {
+    private compiler;
     private vcRef;
     private el;
     private service;
     colorPicker: string;
     colorPickerChange: EventEmitter<string>;
+    cpToggle: boolean;
+    cpToggleChange: EventEmitter<boolean>;
     cpPosition: string;
     cpPositionOffset: string;
     cpPositionRelativeToArrow: boolean;
     cpOutputFormat: string;
+    cpPresetLabel: string;
+    cpPresetColors: Array<string>;
     cpCancelButton: boolean;
     cpCancelButtonClass: string;
     cpCancelButtonText: string;
     cpFallbackColor: string;
     cpHeight: string;
+    cpWidth: string;
+    cpIgnoredElements: any;
     private dialog;
     private created;
-    constructor(dcl: DynamicComponentLoader, vcRef: ViewContainerRef, el: ElementRef, service: ColorPickerService);
+    constructor(compiler: Compiler, vcRef: ViewContainerRef, el: ElementRef, service: ColorPickerService);
+    ngOnChanges(changes: any): void;
     ngOnInit(): void;
     onClick(): void;
+    openDialog(): void;
     colorChanged(value: string): void;
     changeInput(value: string): void;
+    toggle(value: boolean): void;
 }
 export declare class TextDirective {
     newValue: EventEmitter<any>;
@@ -46,7 +56,7 @@ export declare class SliderDirective {
     getX(event: any): number;
     getY(event: any): number;
 }
-export declare class DialogComponent implements OnInit {
+export declare class DialogComponent implements OnInit, AfterViewInit {
     private el;
     private service;
     private hsva;
@@ -71,18 +81,26 @@ export declare class DialogComponent implements OnInit {
     private cpPosition;
     private cpPositionOffset;
     private cpOutputFormat;
+    private cpPresetLabel;
+    private cpPresetColors;
     private cpCancelButton;
     private cpCancelButtonClass;
     private cpCancelButtonText;
     private cpHeight;
-    private dialogWidth;
+    private cpWidth;
+    private cpIgnoredElements;
     private dialogArrowSize;
     private dialogArrowOffset;
     private arrowTop;
+    hueSlider: any;
+    alphaSlider: any;
+    dialogElement: any;
     constructor(el: ElementRef, service: ColorPickerService);
-    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string): void;
+    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any): void;
+    updateDialog(color: any, cpHeight: string, cpWidth: string): void;
     setInitialColor(color: any): void;
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     openColorPicker(): void;
     onMouseDown(event: any): void;
     closeColorPicker(): void;
@@ -127,5 +145,5 @@ export declare class DialogComponent implements OnInit {
     update(): void;
     cancelColor(): void;
     isDescendant(parent: any, child: any): boolean;
-    createBox(element: any, offset: any): any;
+    createBox(element: any, offset: boolean): any;
 }
