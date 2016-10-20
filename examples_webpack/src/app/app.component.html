@@ -46,11 +46,11 @@
         <div class="col-md-5">
             <input [(colorPicker)]="color3" 
                 [style.background]="color3" 
-                [value]="color3"                
+                [value]="color3"    
                 [cpOutputFormat]="'rgba'"/><br><br>
             <input [(colorPicker)]="color4" 
                 [style.background]="color4" 
-                [value]="color4"                
+                [value]="color4"    
                 [cpOutputFormat]="'hsla'"/>
         </div>   
         <div class="col-md-7">  
@@ -130,17 +130,39 @@
                 [style.background]="color8"                   
                 [value]="color8"
                 [cpCancelButton]="true"
-                [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/>
+                [cpCancelButtonClass]= "'btn btn-primary btn-xs'"/>
         </div>   
         <div class="col-md-7">  
-            <p>Change cancel button class, default is 'cp-cancel-button-class' and only sets button position,<br>
-                in this example we are using a bootstrap button:</p>
+            <p>Change cancel button class, in this example we are using a bootstrap button:</p>
             <pre>
 &lt;input [(colorPicker)]="color" 
        [style.background]="color" 
        [value]="color"
        [cpCancelButton]="true"
-       [cpCancelButtonClass]= "'btn btn-primary btn-xs cp-cancel-button-class'"/&gt;
+       [cpCancelButtonClass]= "'btn btn-primary btn-xs'"/&gt;
+            </pre>            
+        </div>
+    </div>
+    
+    <hr>
+    <div class="row" > 
+        <div class="col-md-5" >
+            <input [(colorPicker)]="color9" 
+                [style.background]="color9"                   
+                [value]="color9"
+                [cpOKButton]="true"
+                [cpSaveClickOutside]="false"
+                [cpOKButtonClass]= "'btn btn-primary btn-xs'"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Show OK button:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpOKButton]="true"
+       [cpSaveClickOutside]="false"
+       [cpOKButtonClass]= "'btn btn-primary btn-xs'"/&gt;
             </pre>            
         </div>
     </div>
@@ -149,9 +171,9 @@
     <div class="row">         
         <div class="col-md-5">
 
-            <input [colorPicker]="color9" 
-                (colorPickerChange)="cmyk=onChangeColor($event);color9=$event"
-                [style.background]="color9"/>  
+            <input [colorPicker]="color10" 
+                (colorPickerChange)="cmyk=onChangeColor($event);color10=$event"
+                [style.background]="color10"/>  
 
             <div class="clearfix"></div>
 
@@ -194,48 +216,21 @@
     <hr>
     <div class="row">         
         <div class="col-md-5">
-            <input [(colorPicker)]="color10" [style.background]="color10" [cpPresetColors]="['#fff', '#000']"/>
+            <input [(colorPicker)]="color11" 
+                [style.background]="color11" 
+                [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"/>
         </div>   
         <div class="col-md-7">  
             <p>With preset colors:</p>
             <pre>
 &lt;input [(colorPicker)]="color" 
        [style.background]="color"
-       [cpPresetColors]="['#fff', '#000']"/&gt;
+       [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"/&gt;
             </pre>            
         </div>
     </div>
     
     <hr>
-    <div class="row">         
-        <div id="color-comparator" class="col-md-5">
-            <button (click)="toggle=true;lastColor=color11" 
-                    [style.background]="lastColor" 
-                    #ignoredElement></button>
-            <input [(colorPicker)]="color11"                
-                [(cpToggle)]="toggle" 
-                [style.background]="color11" 
-                [cpIgnoredElements]="[ignoredElement]"/>             
-            <div class="clearfix"></div>
-            <br>
-            <div><b>Toggle status: {{toggle}}</b></div>
-        </div>   
-        <div class="col-md-7">  
-            <p>Control color picker dialog with cpToggle:</p>
-            <pre>
-&lt;button (click)="toggle=true;lastColor=color"  
-         [style.background]="lastColor"
-         #ignoredElement&gt;&lt;/button&gt;
-
-&lt;input [(colorPicker)]="color"
-       [(cpToggle)]="toggle"
-       [style.background]="color"
-       [cpIgnoredElements]="[ignoredElement]"/&gt;       
-            </pre>            
-        </div>
-    </div>
-    
-        <hr>
     <div class="row">         
         <div class="col-md-5">
             <input #ignoredInput [(colorPicker)]="color12"                
@@ -258,6 +253,106 @@
 
 &lt;button (click)="toggle=!toggle;lastColor=color"  
          #ignoredButton&gt;&lt;/button&gt;    
+            </pre>            
+        </div>
+    </div>
+       
+    <hr>
+    <div class="row">         
+        <div class="col-md-5">
+            <input [(colorPicker)]="color13" 
+                [style.background]="color13" 
+                [cpAlphaChannel]="'disabled'"
+                [value]="color13"/>
+            <br>
+            <input [(colorPicker)]="color14" 
+                [style.background]="color14" 
+                [cpAlphaChannel]="'hex8'"
+                [cpOutputFormat]="'rgba'"
+                [value]="color14"/>
+            <br>
+            <input [colorPicker]="color15" 
+                (colorPickerChange)="rgbaText=onChangeColorHex8($event);color15=$event"
+                [style.background]="rgbaText" 
+                [cpAlphaChannel]="'hex8'"   
+                [cpOutputFormat]="'hex'"
+                [value]="color15"/>
+        </div>   
+        <div class="col-md-7">  
+            <p>Change alpha channel behaviour:</p>
+            <pre>
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [cpAlphaChannel]="'disabled'"
+       [value]="color"/&gt;
+
+&lt;input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [cpAlphaChannel]="'hex8'"
+       [cpOutputFormat]="'rgba'"
+       [value]="color"/&gt;
+
+&lt;input [colorPicker]="color" 
+       (colorPickerChange)="rgbaText=onChangeColorHex8($event);color=$event"
+       [style.background]="rgbaText" 
+       [cpAlphaChannel]="'hex8'"    
+       [value]="color"/&gt;
+            </pre>            
+        </div>
+    </div>
+
+        <hr>
+    <div class="row" style="height: 320px">         
+        
+        <div class="col-md-3">
+            <span [(colorPicker)]="arrayColors[selectedColor]"     
+                [cpDialogDisplay]="'inline'"
+                [style.background]="arrayColors[selectedColor]"
+                [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                [cpCancelButton]="true"
+                [cpToggle]="true">
+            </span>             
+        </div>
+        
+        <div class="col-md-2">
+            
+            <div class="array-colors-element"
+                    [style.background]="arrayColors['color']"
+                    (click)="selectedColor='color'"></div>
+
+            <div class="array-colors-element"
+                    [style.background]="arrayColors['color2']"
+                    (click)="selectedColor='color2'"></div>
+            
+            <div class="array-colors-element"
+                    [style.background]="arrayColors['color3']"
+                    (click)="selectedColor='color3'"></div>
+            
+            <div class="array-colors-element"
+                    [style.background]="arrayColors['color4']"
+                    (click)="selectedColor='color4'"></div>
+            
+            <div class="array-colors-element"
+                    [style.background]="arrayColors['color5']"
+                    (click)="selectedColor='color5'"></div>
+                        
+        </div>                
+
+        <div class="col-md-7">  
+            <p>Show the dialog permanently: </p>
+            <pre>
+&lt;span [(colorPicker)]="arrayColors[selectedColor]"     
+      [cpType]="'fixed'"
+      [style.background]="arrayColors[selectedColor]"
+      [cpToggle]="true"&gt;&lt;/span&gt;
+
+&lt;div [style.background]="arrayColors['color']"
+     (click)="selectedColor='color'"&gt;&lt;/div&gt;
+
+&lt;div [style.background]="arrayColors['color2']"
+     (click)="selectedColor='color2'"&gt;&lt;/div&gt;
+
+...
             </pre>            
         </div>
     </div>
@@ -301,13 +396,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>cpCancelButton</td>
-                        <td>                            
-                            <b>false</b>, true<br>
-                            When the user cancels the initial color is restored.
-                        </td>
-                    </tr>
-                    <tr>
                         <td>cpWidth</td>
                         <td>                            
                             <b>'230px'</b><br>
@@ -322,17 +410,36 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>cpCancelButtonClass</td>
+                        <td>cpSaveClickOutside</td>
                         <td>                            
-                            <b>'cancel-button-class'</b><br>
-                            Default class only sets button position:
-                            <pre>
-.cp-cancel-button-class&#123;
-    position:absolute; 
-    top: 275px;
-    left: 161px;    
-&#125;
-                            </pre>
+                            <b>true</b>, false<br>
+                            If true the initial color is restored when user clicks outside.
+                        </td>
+                    </tr>                                    
+                    <tr>
+                        <td>cpOKButton</td>
+                        <td>                            
+                            <b>false</b>, true<br>  
+                            Shows the Ok button. Saves the selected color.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpOKButtonText</td>
+                        <td>
+                            <b>'OK'</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpOKButtonClass</td>
+                        <td>                            
+                            Class to customize the OK button.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpCancelButton</td>
+                        <td>                             
+                            <b>false</b>, true<br>
+                            Shows the Cancel button. Cancel the selected color.
                         </td>
                     </tr>
                     <tr>
@@ -341,6 +448,12 @@
                             <b>'Cancel'</b>
                         </td>
                     </tr>
+                    <tr>
+                        <td>cpCancelButtonClass</td>
+                        <td>                            
+                            Class to customize the Cancel button.
+                        </td>
+                    </tr>    
                     <tr>
                         <td>cpFallbackColor</td>
                         <td>
@@ -374,6 +487,23 @@
                         <td>
                             <b>[]</b><br>
                             Array of HTML elements that will be ignored by the color picker when they are clicked.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpDialogDisplay</td>
+                        <td>
+                            <b>'popup'</b>, 'inline'<br>
+                            popup: dialog is showed when user clicks in the directive.<br>
+                            inline: dialog is showed permanently. You can show/hide the dialog with cpToggle.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>cpAlphaChannel</td>
+                        <td>
+                            <b>'hex6'</b>, 'hex8', 'disabled'<br>
+                            hex6: alpha channel is not allowed in hexadecimal values.<br>
+                            hex8: alpha channel is allowed in hexadecimal values.<br>
+                            disabled: alpha channel disabled.<br>
                         </td>
                     </tr>
                 </tbody>

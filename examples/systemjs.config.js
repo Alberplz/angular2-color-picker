@@ -4,9 +4,19 @@
  */
 (function (global) {
     System.config({
+        transpiler: 'ts',
+        typescriptOptions: {
+            tsconfig: true
+        },
+        meta: {
+            'typescript': {
+                "exports": "ts"
+            }
+        },
         paths: {
             // paths serve as alias
-            'npm:': 'node_modules/'
+            //'npm:': 'node_modules/'
+            'npm:': 'https://unpkg.com/'
         },
         // map tells the System loader where to look for things
         map: {
@@ -24,13 +34,15 @@
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
-            'angular2-color-picker': 'node_modules/angular2-color-picker'
+            'angular2-color-picker': 'node_modules/angular2-color-picker',
+            'ts': 'npm:plugin-typescript@4.0.10/lib/plugin.js',
+            'typescript': 'npm:typescript@2.0.2/lib/typescript.js'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
             app: {
-                main: './main.js',
-                defaultExtension: 'js'
+                main: './main.ts',
+                defaultExtension: 'ts'
             },
             rxjs: {
                 defaultExtension: 'js'
@@ -39,7 +51,7 @@
                 main: './index.js',
                 defaultExtension: 'js'
             },
-            'angular2-color-picker': {main: 'index.js', defaultExtension: 'js'}
+            'angular2-color-picker': {main: 'index.ts', defaultExtension: 'ts'}
         }
     });
 })(this);

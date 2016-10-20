@@ -6,7 +6,9 @@ This is a Color Picker Directive/Component for Angular 2.
 http://alberplz.github.io/angular2-color-picker/examples/index.html
 
 # Installation
+```bash
 npm i --save angular2-color-picker
+```
 
 # Usage
 * Use it in your HTML elements, for example:
@@ -18,29 +20,30 @@ npm i --save angular2-color-picker
 <input [colorPicker]="color" (colorPickerChange)="color=$event" [style.background]="color" [value]="color"/>
 ```
 
-* Add ColorPickerService in your app.module.ts:
+* Add ColorPickerModule in your app.module.ts:
 ```javascript
-import {ColorPickerService} from 'angular2-color-picker';
+import {ColorPickerModule} from 'angular2-color-picker';
 
 @NgModule({
     ...
-    providers: [ColorPickerService]
+    imports: [ColorPickerModule]
 })
 
 ```
-* Include ColorPickerDirective in your component, and set color the variable:
+* Set color the variable. You can use ColorPickerService in your component if you want extra functions.
 ```javascript
 import {Component} from '@angular/core';
-import {ColorPickerDirective} from 'angular2-color-picker';
+import {ColorPickerService} from 'angular2-color-picker';
 
 @Component({
     selector: 'my-app',
-    templateUrl: 'app/demo.html',
-    directives: [ColorPickerDirective]
+    templateUrl: 'app/demo.html'
 })
 
 export class AppComponent {
     private color: string = "#127bdc";
+    constructor(private cpService: ColorPickerService) {
+    }
 }
 ```
 * Configure system.config.js
@@ -55,10 +58,12 @@ var packages = {
     };
 ```
 #Build
-git clone https://github.com/Alberplz/angular2-color-picker.git<br />
-npm install<br />
-cd agular2-color-picker<br />
+```bash
+git clone https://github.com/Alberplz/angular2-color-picker.git
+npm install
+cd agular2-color-picker
 npm run build
+```
 
 #Options
 Default option is the first item.
@@ -67,14 +72,22 @@ Default option is the first item.
 [cpPosition]="'right', 'left', 'top', 'bottom'"
 [cpPositionOffset]="'0%'"
 [cpPositionRelativeToArrow]="false, true"
-[cpCancelButton]="false, true"
 [cpWidth]="'230px'"
-[cpHeight]="'290px'"
-[cpCancelButtonClass]="'cp-cancel-button-class'"
+[cpHeight]="'auto'"
+[cpSaveClickOutside]="true, false"
+[cpOKButton]="false, true"
+[cpOKButtonClass]="''"
+[cpOKButtonText]="'OK'"
+[cpCancelButton]="false, true"
+[cpCancelButtonClass]="''"
 [cpCancelButtonText]="'Cancel'"
 [cpFallbackColor]="'#fff'"
 [cpPresetLabel]="'Preset colors'"
 [cpPresetColors]="[]", e.g: "['#fff', '#000']"
+[cpToggle] = "false, true"
+[cpIgnoredElements]="[]"
+[cpDialogDisplay]="'popup,' 'inline'"
+[cpAlphaChannel]="'hex6', 'hex8', 'disabled'"
 ```
 
 #Extra content

@@ -1,4 +1,4 @@
-import { OnChanges, ViewContainerRef, ElementRef, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
+import { OnChanges, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { ColorPickerService } from './color-picker.service';
 import { Compiler } from '@angular/core';
 export declare class ColorPickerDirective implements OnInit, OnChanges {
@@ -19,18 +19,25 @@ export declare class ColorPickerDirective implements OnInit, OnChanges {
     cpCancelButton: boolean;
     cpCancelButtonClass: string;
     cpCancelButtonText: string;
+    cpOKButton: boolean;
+    cpOKButtonClass: string;
+    cpOKButtonText: string;
     cpFallbackColor: string;
     cpHeight: string;
     cpWidth: string;
     cpIgnoredElements: any;
+    cpDialogDisplay: string;
+    cpSaveClickOutside: boolean;
+    cpAlphaChannel: string;
     private dialog;
     private created;
+    private ignoreChanges;
     constructor(compiler: Compiler, vcRef: ViewContainerRef, el: ElementRef, service: ColorPickerService);
     ngOnChanges(changes: any): void;
     ngOnInit(): void;
     onClick(): void;
     openDialog(): void;
-    colorChanged(value: string): void;
+    colorChanged(value: string, ignore?: boolean): void;
     changeInput(value: string): void;
     toggle(value: boolean): void;
 }
@@ -56,7 +63,7 @@ export declare class SliderDirective {
     getX(event: any): number;
     getY(event: any): number;
 }
-export declare class DialogComponent implements OnInit, AfterViewInit {
+export declare class DialogComponent implements OnInit {
     private el;
     private service;
     private hsva;
@@ -64,6 +71,7 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     private hslaText;
     private hexText;
     private outputColor;
+    private selectedColor;
     private alphaSliderColor;
     private hueSliderColor;
     private slider;
@@ -86,9 +94,15 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     private cpCancelButton;
     private cpCancelButtonClass;
     private cpCancelButtonText;
+    private cpOKButton;
+    private cpOKButtonClass;
+    private cpOKButtonText;
     private cpHeight;
     private cpWidth;
     private cpIgnoredElements;
+    private cpDialogDisplay;
+    private cpSaveClickOutside;
+    private cpAlphaChannel;
     private dialogArrowSize;
     private dialogArrowOffset;
     private arrowTop;
@@ -96,13 +110,15 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
     alphaSlider: any;
     dialogElement: any;
     constructor(el: ElementRef, service: ColorPickerService);
-    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any): void;
-    updateDialog(color: any, cpHeight: string, cpWidth: string): void;
-    setInitialColor(color: any): void;
+    setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string, cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>, cpCancelButton: boolean, cpCancelButtonClass: string, cpCancelButtonText: string, cpOKButton: boolean, cpOKButtonClass: string, cpOKButtonText: string, cpHeight: string, cpWidth: string, cpIgnoredElements: any, cpDialogDisplay: string, cpSaveClickOutside: boolean, cpAlphaChannel: string): void;
     ngOnInit(): void;
-    ngAfterViewInit(): void;
-    openColorPicker(): void;
+    setInitialColor(color: any): void;
+    openDialog(color: any, emit?: boolean): void;
+    cancelColor(): void;
+    oKColor(): void;
+    setColorFromString(value: string, emit?: boolean): void;
     onMouseDown(event: any): void;
+    openColorPicker(): void;
     closeColorPicker(): void;
     onResize(): void;
     setDialogPosition(): void;
@@ -140,10 +156,8 @@ export declare class DialogComponent implements OnInit, AfterViewInit {
         rgX: number;
         rgY: number;
     }): void;
-    setColorFromString(value: string): void;
     formatPolicy(): number;
-    update(): void;
-    cancelColor(): void;
+    update(emit?: boolean): void;
     isDescendant(parent: any, child: any): boolean;
     createBox(element: any, offset: boolean): any;
 }

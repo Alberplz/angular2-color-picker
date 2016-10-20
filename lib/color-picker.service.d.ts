@@ -5,8 +5,8 @@ export declare class ColorPickerService {
     hsva2hsla(hsva: Hsva): Hsla;
     rgbaToHsva(rgba: Rgba): Hsva;
     hsvaToRgba(hsva: Hsva): Rgba;
-    stringToHsva(colorString?: string): Hsva;
-    outputFormat(hsva: Hsva, outputFormat: string): string;
-    hexText(rgba: Rgba): string;
+    stringToHsva(colorString?: string, hex8?: boolean): Hsva;
+    outputFormat(hsva: Hsva, outputFormat: string, allowHex8: boolean): string;
+    hexText(rgba: Rgba, allowHex8: boolean): string;
     denormalizeRGBA(rgba: Rgba): Rgba;
 }
