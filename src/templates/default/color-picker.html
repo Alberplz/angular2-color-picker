@@ -65,7 +65,7 @@
        <div *ngFor="let color of cpPresetColors" class="preset-color" [style.backgroundColor]="color" (click)="setColorFromString(color)"></div>
     </div>
 
-    <div class="button-area">
+    <div *ngIf="cpOKButton || cpCancelButton" class="button-area">
         <button *ngIf="cpOKButton" type="button" class="{{cpOKButtonClass}}" (click)="oKColor()">{{cpOKButtonText}}</button>
         <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
     </div>
