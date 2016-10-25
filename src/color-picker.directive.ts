@@ -317,13 +317,13 @@ export class DialogComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         if (this.cpWidth != 230) {
-          let alphaWidth = this.alphaSlider.nativeElement.offsetWidth;
-          let hueWidth = this.hueSlider.nativeElement.offsetWidth;
-          this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
+            let alphaWidth = this.alphaSlider.nativeElement.offsetWidth;
+            let hueWidth = this.hueSlider.nativeElement.offsetWidth;
+            this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
 
-          this.update(false);
+            this.update(false);
 
-          this.cdr.detectChanges();
+            this.cdr.detectChanges();
         }
     }
 
