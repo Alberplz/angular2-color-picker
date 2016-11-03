@@ -35,7 +35,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpDialogDisplay') cpDialogDisplay: string = 'popup';
     @Input('cpSaveClickOutside') cpSaveClickOutside: boolean = true;
     @Input('cpAlphaChannel') cpAlphaChannel: string = 'hex6';
-	@Input('"cpColorChangeOnInit" ') cpColorChangeOnInit : boolean = true;
+	@Input('cpColorChangeOnInit') cpColorChangeOnInit : boolean = true;
 	
 
     private dialog: any;
