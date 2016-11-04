@@ -209,20 +209,19 @@ export class SliderDirective {
 
 export class DialogComponent implements OnInit {
     private hsva: Hsva;
-    private rgbaText: Rgba;
-    private hslaText: Hsla;
-    private hexText: string;
-    private outputColor: string;
-    private selectedColor: string;
-    private alphaSliderColor: string;
-    private hueSliderColor: string;
-    private slider: SliderPosition;
+    public rgbaText: Rgba;
+    public hslaText: Hsla;
+    public hexText: string;
+    public outputColor: string;
+    public alphaSliderColor: string;
+    public hueSliderColor: string;
+    public slider: SliderPosition;
     private sliderDimMax: SliderDimension;
-    private format: number;
-    private show: boolean;
-    private top: number;
-    private left: number;
-    private position: string;
+    public format: number;
+    public show: boolean;
+    public top: number;
+    public left: number;
+    public position: string;
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
@@ -230,27 +229,21 @@ export class DialogComponent implements OnInit {
     private listenerMouseDown: any;
     private listenerResize: any;
 
-    private cpPosition: string;
+    public cpPosition: string;
     private cpPositionOffset: number;
     private cpOutputFormat: string;
     private cpPresetLabel: string;
-    private cpPresetColors: Array<string>;
-    private cpCancelButton: boolean;
+    public cpPresetColors: Array<string>;
+    public cpCancelButton: boolean;
     private cpCancelButtonClass: string;
     private cpCancelButtonText: string;
-    private cpOKButton: boolean;
-    private cpOKButtonClass: string;
-    private cpOKButtonText: string;
-    private cpHeight: number;
-    private cpWidth: number;
+    public cpHeight: number;
+    public cpWidth: number;
     private cpIgnoredElements: any;
-    private cpDialogDisplay: string;
-    private cpSaveClickOutside: boolean;
-    private cpAlphaChannel: string;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
-    private arrowTop: number;
+    public arrowTop: number;
 
     @ViewChild('hueSlider') hueSlider: any;
     @ViewChild('alphaSlider') alphaSlider: any;
@@ -540,4 +533,4 @@ export class DialogComponent implements OnInit {
     imports: [BrowserModule],
     declarations: [DialogComponent, TextDirective, SliderDirective]
 })
-class DynamicCpModule { };
+export class DynamicCpModule { };
