@@ -10,7 +10,7 @@ examples_webpack/node_modules/*
 examples_webpack/dist/*
 examples_webpack/typings/*
 
-node_modules/*
+/node_modules/
 typings/*
 npm-debug.log
 
