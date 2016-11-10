@@ -28,13 +28,15 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpOKButton') cpOKButton: boolean = false;
     @Input('cpOKButtonClass') cpOKButtonClass: string = 'cp-ok-button-class';
     @Input('cpOKButtonText') cpOKButtonText: string = 'OK';
-    @Input('cpFallbackColor') cpFallbackColor: string = '#fff';
+    @Input('cpFallbackColor') cpFallbackColor: string = 'rgba(0,0,0,0)';
     @Input('cpHeight') cpHeight: string = 'auto';
     @Input('cpWidth') cpWidth: string = '230px';
     @Input('cpIgnoredElements') cpIgnoredElements: any = [];
     @Input('cpDialogDisplay') cpDialogDisplay: string = 'popup';
     @Input('cpSaveClickOutside') cpSaveClickOutside: boolean = true;
     @Input('cpAlphaChannel') cpAlphaChannel: string = 'hex6';
+	@Input('cpColorChangeOnInit') cpColorChangeOnInit : boolean = true;
+	
 
     private dialog: any;
     private created: boolean;
@@ -67,13 +69,15 @@ export class ColorPickerDirective implements OnInit, OnChanges {
         if (hsva == null) {
             hsva = this.service.stringToHsva(this.cpFallbackColor);
         }
-        this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8'));
+		
+		this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8'));
     }
 
-    onClick() {
-        if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
-            this.openDialog();
-        }
+    onClick() {		
+		if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
+			this.openDialog();
+		}
+
     }
 
     openDialog() {
@@ -204,49 +208,52 @@ export class SliderDirective {
 })
 
 export class DialogComponent implements OnInit {
+    rgbaText: Rgba;
+    hslaText: Hsla;
+    hexText: string;
+    outputColor: string;
+    alphaSliderColor: string;
+    hueSliderColor: string;
+    slider: SliderPosition;
+    format: number;
+    show: boolean;
+    top: number;
+    left: number;
+    position: string;
+    cpPosition: string;
+    cpPresetColors: Array<string>;
+    cpCancelButton: boolean;
+    cpHeight: number;
+    cpWidth: number;
+    arrowTop: number;
+	
     private hsva: Hsva;
-    private rgbaText: Rgba;
-    private hslaText: Hsla;
-    private hexText: string;
-    private outputColor: string;
-    private selectedColor: string;
-    private alphaSliderColor: string;
-    private hueSliderColor: string;
-    private slider: SliderPosition;
-    private sliderDimMax: SliderDimension;
-    private format: number;
-    private show: boolean;
-    private top: number;
-    private left: number;
-    private position: string;
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
 
+    private sliderDimMax: SliderDimension;
     private listenerMouseDown: any;
     private listenerResize: any;
 
-    private cpPosition: string;
     private cpPositionOffset: number;
     private cpOutputFormat: string;
     private cpPresetLabel: string;
-    private cpPresetColors: Array<string>;
-    private cpCancelButton: boolean;
     private cpCancelButtonClass: string;
     private cpCancelButtonText: string;
-    private cpOKButton: boolean;
-    private cpOKButtonClass: string;
-    private cpOKButtonText: string;
-    private cpHeight: number;
-    private cpWidth: number;
     private cpIgnoredElements: any;
-    private cpDialogDisplay: string;
-    private cpSaveClickOutside: boolean;
-    private cpAlphaChannel: string;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
-    private arrowTop: number;
+	
+	//
+	cpOKButton: boolean = false;
+    cpOKButtonClass: string = 'cp-ok-button-class';
+    cpOKButtonText: string  = 'OK';
+	cpDialogDisplay: string = 'popup';
+	cpAlphaChannel: string  = 'hex6';
+	cpSaveClickOutside: boolean = false;
+	selectedColor:string;
 
     @ViewChild('hueSlider') hueSlider: any;
     @ViewChild('alphaSlider') alphaSlider: any;
@@ -536,4 +543,4 @@ export class DialogComponent implements OnInit {
     imports: [BrowserModule],
     declarations: [DialogComponent, TextDirective, SliderDirective]
 })
-class DynamicCpModule { };
+export class DynamicCpModule { };

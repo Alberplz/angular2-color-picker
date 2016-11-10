@@ -88,6 +88,7 @@ Default option is the first item.
 [cpIgnoredElements]="[]"
 [cpDialogDisplay]="'popup,' 'inline'"
 [cpAlphaChannel]="'hex6', 'hex8', 'disabled'"
+[cpColorChangeOnInit]="true, false"
 ```
 
 #Extra content
