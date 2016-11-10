@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+
+  "files": [
+    "src/color-picker.module.d.ts",
+    "src/index.d.ts"
+  ],
+
+  "angularCompilerOptions": {
+    "genDir": "dist",
+    "skipMetadataEmit" : true
+  },
+  "exclude": [
+	"node_modules"
+	]
+}

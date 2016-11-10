@@ -1,5 +1,6 @@
 import { OnChanges, ViewContainerRef, ElementRef, EventEmitter, OnInit } from '@angular/core';
 import { ColorPickerService } from './color-picker.service';
+import { Rgba, Hsla, SliderPosition } from './classes';
 import { Compiler } from '@angular/core';
 export declare class ColorPickerDirective implements OnInit, OnChanges {
     private compiler;
@@ -29,6 +30,7 @@ export declare class ColorPickerDirective implements OnInit, OnChanges {
     cpDialogDisplay: string;
     cpSaveClickOutside: boolean;
     cpAlphaChannel: string;
+    cpColorChangeOnInit: boolean;
     private dialog;
     private created;
     private ignoreChanges;
@@ -66,46 +68,46 @@ export declare class SliderDirective {
 export declare class DialogComponent implements OnInit {
     private el;
     private service;
+    rgbaText: Rgba;
+    hslaText: Hsla;
+    hexText: string;
+    outputColor: string;
+    alphaSliderColor: string;
+    hueSliderColor: string;
+    slider: SliderPosition;
+    format: number;
+    show: boolean;
+    top: number;
+    left: number;
+    position: string;
+    cpPosition: string;
+    cpPresetColors: Array<string>;
+    cpCancelButton: boolean;
+    cpHeight: number;
+    cpWidth: number;
+    arrowTop: number;
     private hsva;
-    private rgbaText;
-    private hslaText;
-    private hexText;
-    private outputColor;
-    private selectedColor;
-    private alphaSliderColor;
-    private hueSliderColor;
-    private slider;
-    private sliderDimMax;
-    private format;
-    private show;
-    private top;
-    private left;
-    private position;
     private directiveInstance;
     private initialColor;
     private directiveElementRef;
+    private sliderDimMax;
     private listenerMouseDown;
     private listenerResize;
-    private cpPosition;
     private cpPositionOffset;
     private cpOutputFormat;
     private cpPresetLabel;
-    private cpPresetColors;
-    private cpCancelButton;
     private cpCancelButtonClass;
     private cpCancelButtonText;
-    private cpOKButton;
-    private cpOKButtonClass;
-    private cpOKButtonText;
-    private cpHeight;
-    private cpWidth;
     private cpIgnoredElements;
-    private cpDialogDisplay;
-    private cpSaveClickOutside;
-    private cpAlphaChannel;
     private dialogArrowSize;
     private dialogArrowOffset;
-    private arrowTop;
+    cpOKButton: boolean;
+    cpOKButtonClass: string;
+    cpOKButtonText: string;
+    cpDialogDisplay: string;
+    cpAlphaChannel: string;
+    cpSaveClickOutside: boolean;
+    selectedColor: string;
     hueSlider: any;
     alphaSlider: any;
     dialogElement: any;
@@ -160,4 +162,6 @@ export declare class DialogComponent implements OnInit {
     update(emit?: boolean): void;
     isDescendant(parent: any, child: any): boolean;
     createBox(element: any, offset: boolean): any;
+}
+export declare class DynamicCpModule {
 }

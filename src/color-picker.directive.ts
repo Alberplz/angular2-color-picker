@@ -28,7 +28,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     @Input('cpOKButton') cpOKButton: boolean = false;
     @Input('cpOKButtonClass') cpOKButtonClass: string = 'cp-ok-button-class';
     @Input('cpOKButtonText') cpOKButtonText: string = 'OK';
-    @Input('cpFallbackColor') cpFallbackColor: string = '#fff';
+    @Input('cpFallbackColor') cpFallbackColor: string = 'rgba(0,0,0,0)';
     @Input('cpHeight') cpHeight: string = 'auto';
     @Input('cpWidth') cpWidth: string = '230px';
     @Input('cpIgnoredElements') cpIgnoredElements: any = [];
@@ -69,15 +69,15 @@ export class ColorPickerDirective implements OnInit, OnChanges {
         if (hsva == null) {
             hsva = this.service.stringToHsva(this.cpFallbackColor);
         }
-		if(this.cpColorChangeOnInit == true){
-			this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8'));
-		}
+		
+		this.colorPickerChange.emit(this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8'));
     }
 
-    onClick() {
-        if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
-            this.openDialog();
-        }
+    onClick() {		
+		if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
+			this.openDialog();
+		}
+
     }
 
     openDialog() {
@@ -208,42 +208,52 @@ export class SliderDirective {
 })
 
 export class DialogComponent implements OnInit {
+    rgbaText: Rgba;
+    hslaText: Hsla;
+    hexText: string;
+    outputColor: string;
+    alphaSliderColor: string;
+    hueSliderColor: string;
+    slider: SliderPosition;
+    format: number;
+    show: boolean;
+    top: number;
+    left: number;
+    position: string;
+    cpPosition: string;
+    cpPresetColors: Array<string>;
+    cpCancelButton: boolean;
+    cpHeight: number;
+    cpWidth: number;
+    arrowTop: number;
+	
     private hsva: Hsva;
-    public rgbaText: Rgba;
-    public hslaText: Hsla;
-    public hexText: string;
-    public outputColor: string;
-    public alphaSliderColor: string;
-    public hueSliderColor: string;
-    public slider: SliderPosition;
-    private sliderDimMax: SliderDimension;
-    public format: number;
-    public show: boolean;
-    public top: number;
-    public left: number;
-    public position: string;
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
 
+    private sliderDimMax: SliderDimension;
     private listenerMouseDown: any;
     private listenerResize: any;
 
-    public cpPosition: string;
     private cpPositionOffset: number;
     private cpOutputFormat: string;
     private cpPresetLabel: string;
-    public cpPresetColors: Array<string>;
-    public cpCancelButton: boolean;
     private cpCancelButtonClass: string;
     private cpCancelButtonText: string;
-    public cpHeight: number;
-    public cpWidth: number;
     private cpIgnoredElements: any;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
-    public arrowTop: number;
+	
+	//
+	cpOKButton: boolean = false;
+    cpOKButtonClass: string = 'cp-ok-button-class';
+    cpOKButtonText: string  = 'OK';
+	cpDialogDisplay: string = 'popup';
+	cpAlphaChannel: string  = 'hex6';
+	cpSaveClickOutside: boolean = false;
+	selectedColor:string;
 
     @ViewChild('hueSlider') hueSlider: any;
     @ViewChild('alphaSlider') alphaSlider: any;
