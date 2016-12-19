@@ -5,7 +5,6 @@ import {ColorPickerService} from './color-picker.service';
 import {ColorPickerDirective} from './color-picker.directive';
 
 @NgModule({
-    imports: [CommonModule],
     providers: [ColorPickerService],
     declarations: [ColorPickerDirective],
     exports: [ColorPickerDirective]
