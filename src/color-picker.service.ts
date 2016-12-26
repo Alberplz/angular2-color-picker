@@ -48,6 +48,9 @@ export class ColorPickerService {
                 case b:
                     h = (r - g) / d + 4;
                     break;
+                default:
+                    h = 0;
+                    break;
             }
             h /= 6;
         }
@@ -83,6 +86,11 @@ export class ColorPickerService {
                 break;
             case 5:
                 r = v, g = p, b = q;
+                break;
+            default:
+                r = 0;
+                g = 0;
+                b = 0;
                 break;
         }
 
@@ -140,10 +148,10 @@ export class ColorPickerService {
                     }
                 });
         }
-        
+
 
         colorString = colorString.toLowerCase();
-        let hsva: Hsva = null;
+        let hsva: Hsva = <any>undefined;
         for (let key in stringParsers) {
             if (stringParsers.hasOwnProperty(key)) {
                 let parser = stringParsers[key];
