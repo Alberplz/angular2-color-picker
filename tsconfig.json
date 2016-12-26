@@ -1,14 +1,23 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "removeComments": false,
-        "noImplicitAny": false,
-        "declaration": true
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmitHelpers": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "outDir": "./lib",
+        "preserveConstEnums": true,
+        "removeComments": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "target": "es6"
     },
     "exclude": [
         "node_modules",

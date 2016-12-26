@@ -82,6 +82,11 @@ export class ColorPickerDirective implements OnInit, OnChanges {
             this.compiler.compileModuleAndAllComponentsAsync(DynamicCpModule)
                 .then(factory => {
                     const compFactory = factory.componentFactories.find(x => x.componentType === DialogComponent);
+
+                    if (!compFactory) {
+                        throw new Error(`no comp factory`);
+                    }
+
                     const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
                     const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
                     cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
@@ -213,11 +218,11 @@ export class SliderDirective {
               </div>
               <div class="right">
                   <div *ngIf="cpAlphaChannel==='disabled'" style="height: 18px;"></div>
-            
+
                   <div [slider] [rgX]="1" (newValue)="setHue($event)" class="hue" #hueSlider>
                       <div [style.left.px]="slider.h" class="cursor"></div>
                   </div>
-            
+
                   <div [hidden]="cpAlphaChannel==='disabled'" [slider] [style.background-color]="alphaSliderColor" [rgX]="1" (newValue)="setAlpha($event)" class="alpha" #alphaSlider>
                       <div [style.left.px]="slider.a" class="cursor"></div>
                   </div>
@@ -271,7 +276,7 @@ export class SliderDirective {
               <button *ngIf="cpOKButton" type="button" class="{{cpOKButtonClass}}" (click)="oKColor()">{{cpOKButtonText}}</button>
               <button *ngIf="cpCancelButton" type="button" class="{{cpCancelButtonClass}}" (click)="cancelColor()">{{cpCancelButtonText}}</button>
           </div>
-  
+
       </div>
     `,
     styles: [`
