@@ -51,7 +51,10 @@
                 main: './index.js',
                 defaultExtension: 'js'
             },
-            'angular2-color-picker': {main: 'index.ts', defaultExtension: 'ts'}
+            'angular2-color-picker': {
+                main: 'index.js',
+                defaultExtension: 'js'
+            }
         }
     });
 })(this);
