@@ -1,20 +1,19 @@
+var exec = require('child_process').exec;
 var gulp = require('gulp');
 var del = require('del');
 var tsc = require('gulp-typescript');
-var gulpTypings = require("gulp-typings");
 var sourcemaps = require('gulp-sourcemaps');
-var tscConfig = require('./tsconfig.json');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence');
 
-gulp.task('clean', function () {
-    return del.sync('lib/**/*');
+var tscConfig = tsc.createProject('tsconfig.json', {
+    typescript: require('typescript')
 });
 
-gulp.task("typings", function () {
-    return gulp.src("./typings.json").pipe(gulpTypings());
+gulp.task('clean', function () {
+    return del.sync('lib/**/*');
 });
 
 gulp.task('sass', function () {
@@ -29,23 +28,18 @@ gulp.task('createts', function () {
             .pipe(gulp.dest('lib'));
 });
 
-gulp.task('compile:lib', function () {
-    var r = gulp.src(['typings/index.d.ts', 'lib/**/*.ts'])
-            .pipe(sourcemaps.init())
-            .pipe(tsc(tscConfig.compilerOptions));
-
-    r.dts.pipe(gulp.dest('lib'));
-    r.js.pipe(uglify()).pipe(gulp.dest('lib'));
-
-    return r.pipe(sourcemaps.write('.'))
-            .pipe(gulp.dest('lib'));
+gulp.task('compile:lib', function (cb) {
+    exec('ngc -p tsconfig.json', function (err, stdout, stderr) {
+        if (stdout) console.log(stdout);
+        if (stderr) console.error(stderr);
+        cb(err);
+  });
 });
 
 gulp.task('compile:index', function () {
-    var r = gulp.src(['typings/index.d.ts', 'index.ts'])
+    var r = gulp.src(['index.ts', 'node_modules/@types/!(vinyl)/*.d.ts'])
             .pipe(sourcemaps.init())
-            .pipe(tsc(tscConfig.compilerOptions));
-
+            .pipe(tsc(tscConfig))
     r.dts.pipe(gulp.dest('.'));
     r.js.pipe(gulp.dest('.'));
 
@@ -54,11 +48,11 @@ gulp.task('compile:index', function () {
 });
 
 gulp.task('clean:postcompile', function () {
-    return del.sync('src/templates/default/color-picker.css');
+    return del.sync(['src/templates/default/color-picker.css', 'lib/*[!\.][!d].ts']);
 });
 
 gulp.task('default', function (callback) {
-    runSequence('clean', 'typings', 'sass', 'createts', 'compile:lib', 'compile:index', 'clean:postcompile', callback);
+    runSequence('clean', 'sass', 'createts', 'compile:lib', 'compile:index', 'clean:postcompile', callback);
 });
 
 //copy the library to example/node_modules/angular2-color-picker and examples_webpack/node_modules/angular2-color-picker
