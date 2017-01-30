@@ -39,7 +39,7 @@ gulp.task('compile:lib', function (cb) {
 gulp.task('compile:index', function () {
     var r = gulp.src(['index.ts', 'node_modules/@types/!(vinyl)/*.d.ts'])
             .pipe(sourcemaps.init())
-            .pipe(tsc(tscConfig))
+            .pipe(tscConfig())
     r.dts.pipe(gulp.dest('.'));
     r.js.pipe(gulp.dest('.'));
 
