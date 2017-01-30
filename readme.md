@@ -61,7 +61,7 @@ var packages = {
 ```bash
 git clone https://github.com/Alberplz/angular2-color-picker.git
 npm install
-cd agular2-color-picker
+cd angular2-color-picker
 npm run build
 gulp copylib
 ```
