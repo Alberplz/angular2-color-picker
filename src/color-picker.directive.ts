@@ -1,4 +1,4 @@
-import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
 import {NgModule, Compiler, ReflectiveInjector} from '@angular/core';
@@ -58,6 +58,11 @@ export class ColorPickerDirective implements OnInit, OnChanges {
 
             }
             this.ignoreChanges = false;
+        }
+        if (changes.cpPresetLabel || changes.cpPresetColors) {
+            if (this.dialog) {
+                this.dialog.setPresetConfig(this.cpPresetLabel, this.cpPresetColors);
+            }
         }
     }
 
@@ -203,7 +208,7 @@ export class SliderDirective {
     styleUrls: ['./templates/default/color-picker.css']
 })
 
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit, AfterViewInit {
     private hsva: Hsva;
     private rgbaText: Rgba;
     private hslaText: Hsla;
@@ -253,7 +258,7 @@ export class DialogComponent implements OnInit {
 
     @ViewChild('dialogPopup') dialogElement: any;
 
-    constructor(private el: ElementRef, private service: ColorPickerService) { }
+    constructor(private el: ElementRef, private cdr : ChangeDetectorRef, private service: ColorPickerService) { }
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
         cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>,
@@ -280,6 +285,9 @@ export class DialogComponent implements OnInit {
         this.cpOKButtonText = cpOKButtonText;
         this.cpHeight = parseInt(cpHeight);
         this.cpWidth = parseInt(cpWidth);
+        if (!this.cpWidth) {
+            this.cpWidth = elementRef.nativeElement.offsetWidth;
+        }
         this.cpIgnoredElements = cpIgnoredElements;
         this.cpDialogDisplay = cpDialogDisplay;
         if (this.cpDialogDisplay === 'inline') {
@@ -307,8 +315,25 @@ export class DialogComponent implements OnInit {
         this.openDialog(this.initialColor, false);
     }
 
+    ngAfterViewInit() {
+        if (this.cpWidth != 230) {
+            let alphaWidth = this.alphaSlider.nativeElement.offsetWidth;
+            let hueWidth = this.hueSlider.nativeElement.offsetWidth;
+            this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
+
+            this.update(false);
+
+            this.cdr.detectChanges();
+        }
+    }
+
     setInitialColor(color: any) {
         this.initialColor = color;
+    }
+
+    setPresetConfig(cpPresetLabel: string, cpPresetColors: Array<string>) {
+        this.cpPresetLabel = cpPresetLabel;
+        this.cpPresetColors = cpPresetColors;
     }
 
     openDialog(color: any, emit: boolean = true) {
