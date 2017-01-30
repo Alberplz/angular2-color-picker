@@ -14,11 +14,10 @@ module.exports = {
         'app': './src/main.ts'
     },
     resolve: {
-        extensions: ['.js', '.ts'],
-        modules: [ '../src', path.join(__dirname, "../node_modules") ]
+        extensions: ['.ts', '.js']
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loaders: ['angular2-template-loader'],
@@ -49,6 +48,13 @@ module.exports = {
         ]
     },
     plugins: [
+        // Workaround for angular/angular#11580
+        new webpack.ContextReplacementPlugin(
+                // The (\\|\/) piece accounts for path separators in *nix and Windows
+                /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+                helpers.root('./src'), // location of your src
+                {} // a map of your routes
+        ),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),
