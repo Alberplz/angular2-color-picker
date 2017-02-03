@@ -15,7 +15,8 @@ module.exports = webpackMerge(commonConfig, {
         path: helpers.root('dist'),
         publicPath: 'http://localhost:8080/',
         filename: '[name].js',
-        chunkFilename: '[id].chunk.js'
+        chunkFilename: '[id].chunk.js',
+        sourceMapFilename: '[name].css.map'
     },
     module: {
         rules: [
