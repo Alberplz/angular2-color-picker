@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import {ColorPickerModule, ColorPickerService} from 'angular2-color-picker/lib';
+import { ColorPickerModule } from 'angular2-color-picker';
 
 @NgModule({
     imports: [
@@ -11,7 +11,6 @@ import {ColorPickerModule, ColorPickerService} from 'angular2-color-picker/lib';
     declarations: [
         AppComponent
     ],
-    providers: [ColorPickerService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

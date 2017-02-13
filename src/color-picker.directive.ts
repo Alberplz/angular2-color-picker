@@ -1,8 +1,8 @@
-import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
-import {NgModule, Compiler, ReflectiveInjector} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule, Compiler, ReflectiveInjector, ComponentFactoryResolver} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
 @Directive({
     selector: '[colorPicker]',
@@ -40,7 +40,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     private created: boolean;
     private ignoreChanges: boolean = false;
 
-    constructor(private compiler: Compiler, private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService) {
+    constructor(private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService, private cfr: ComponentFactoryResolver) {
         this.created = false;
     }
 
@@ -58,6 +58,11 @@ export class ColorPickerDirective implements OnInit, OnChanges {
 
             }
             this.ignoreChanges = false;
+        }
+        if (changes.cpPresetLabel || changes.cpPresetColors) {
+            if (this.dialog) {
+                this.dialog.setPresetConfig(this.cpPresetLabel, this.cpPresetColors);
+            }
         }
     }
 
@@ -79,18 +84,15 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     openDialog() {
         if (!this.created) {
             this.created = true;
-            this.compiler.compileModuleAndAllComponentsAsync(DynamicCpModule)
-                .then(factory => {
-                    const compFactory = factory.componentFactories.find(x => x.componentType === DialogComponent);
-                    const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
-                    const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
-                    cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
-                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
-                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText,
-                        this.cpOKButton, this.cpOKButtonClass, this.cpOKButtonText, this.cpHeight, this.cpWidth,
-                        this.cpIgnoredElements, this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel);
-                    this.dialog = cmpRef.instance;
-                });
+            const compFactory = this.cfr.resolveComponentFactory(DialogComponent);
+            const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
+            const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
+            cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
+                this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
+                this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText, this.cpOKButton,
+                this.cpOKButtonClass, this.cpOKButtonText, this.cpHeight, this.cpWidth, this.cpIgnoredElements,
+                this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel);
+            this.dialog = cmpRef.instance;
         } else if (this.dialog) {
             this.dialog.openDialog(this.colorPicker);
         }
@@ -203,22 +205,22 @@ export class SliderDirective {
     styleUrls: ['./templates/default/color-picker.css']
 })
 
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit, AfterViewInit {
     private hsva: Hsva;
-    private rgbaText: Rgba;
-    private hslaText: Hsla;
-    private hexText: string;
+    public rgbaText: Rgba;
+    public hslaText: Hsla;
+    public hexText: string;
     private outputColor: string;
-    private selectedColor: string;
-    private alphaSliderColor: string;
-    private hueSliderColor: string;
-    private slider: SliderPosition;
+    public selectedColor: string;
+    public alphaSliderColor: string;
+    public hueSliderColor: string;
+    public slider: SliderPosition;
     private sliderDimMax: SliderDimension;
-    private format: number;
-    private show: boolean;
-    private top: number;
-    private left: number;
-    private position: string;
+    public format: number;
+    public show: boolean;
+    public top: number;
+    public left: number;
+    public position: string;
     private directiveInstance: any;
     private initialColor: string;
     private directiveElementRef: ElementRef;
@@ -226,34 +228,34 @@ export class DialogComponent implements OnInit {
     private listenerMouseDown: any;
     private listenerResize: any;
 
-    private cpPosition: string;
-    private cpPositionOffset: number;
-    private cpOutputFormat: string;
-    private cpPresetLabel: string;
-    private cpPresetColors: Array<string>;
-    private cpCancelButton: boolean;
-    private cpCancelButtonClass: string;
-    private cpCancelButtonText: string;
-    private cpOKButton: boolean;
-    private cpOKButtonClass: string;
-    private cpOKButtonText: string;
-    private cpHeight: number;
-    private cpWidth: number;
-    private cpIgnoredElements: any;
-    private cpDialogDisplay: string;
-    private cpSaveClickOutside: boolean;
-    private cpAlphaChannel: string;
+    public cpPosition: string;
+    public cpPositionOffset: number;
+    public cpOutputFormat: string;
+    public cpPresetLabel: string;
+    public cpPresetColors: Array<string>;
+    public cpCancelButton: boolean;
+    public cpCancelButtonClass: string;
+    public cpCancelButtonText: string;
+    public cpOKButton: boolean;
+    public cpOKButtonClass: string;
+    public cpOKButtonText: string;
+    public cpHeight: number;
+    public cpWidth: number;
+    public cpIgnoredElements: any;
+    public cpDialogDisplay: string;
+    public cpSaveClickOutside: boolean;
+    public cpAlphaChannel: string;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
-    private arrowTop: number;
+    public arrowTop: number;
 
     @ViewChild('hueSlider') hueSlider: any;
     @ViewChild('alphaSlider') alphaSlider: any;
 
     @ViewChild('dialogPopup') dialogElement: any;
 
-    constructor(private el: ElementRef, private service: ColorPickerService) { }
+    constructor(private el: ElementRef, private cdr: ChangeDetectorRef, private service: ColorPickerService) { }
 
     setDialog(instance: any, elementRef: ElementRef, color: any, cpPosition: string, cpPositionOffset: string,
         cpPositionRelativeToArrow: boolean, cpOutputFormat: string, cpPresetLabel: string, cpPresetColors: Array<string>,
@@ -280,6 +282,9 @@ export class DialogComponent implements OnInit {
         this.cpOKButtonText = cpOKButtonText;
         this.cpHeight = parseInt(cpHeight);
         this.cpWidth = parseInt(cpWidth);
+        if (!this.cpWidth) {
+            this.cpWidth = elementRef.nativeElement.offsetWidth;
+        }
         this.cpIgnoredElements = cpIgnoredElements;
         this.cpDialogDisplay = cpDialogDisplay;
         if (this.cpDialogDisplay === 'inline') {
@@ -307,8 +312,25 @@ export class DialogComponent implements OnInit {
         this.openDialog(this.initialColor, false);
     }
 
+    ngAfterViewInit() {
+        if (this.cpWidth != 230) {
+            let alphaWidth = this.alphaSlider.nativeElement.offsetWidth;
+            let hueWidth = this.hueSlider.nativeElement.offsetWidth;
+            this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
+
+            this.update(false);
+
+            this.cdr.detectChanges();
+        }
+    }
+
     setInitialColor(color: any) {
         this.initialColor = color;
+    }
+
+    setPresetConfig(cpPresetLabel: string, cpPresetColors: Array<string>) {
+        this.cpPresetLabel = cpPresetLabel;
+        this.cpPresetColors = cpPresetColors;
     }
 
     openDialog(color: any, emit: boolean = true) {
@@ -484,30 +506,32 @@ export class DialogComponent implements OnInit {
     }
 
     update(emit: boolean = true) {
-        let hsla = this.service.hsva2hsla(this.hsva);
-        let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
-        let hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new Hsva(this.hsva.h, 1, 1, 1)));
+        if (this.sliderDimMax) {
+            let hsla = this.service.hsva2hsla(this.hsva);
+            let rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
+            let hueRgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(new Hsva(this.hsva.h, 1, 1, 1)));
 
-        this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
-        this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
-        this.hexText = this.service.hexText(rgba, this.cpAlphaChannel === 'hex8');
+            this.hslaText = new Hsla(Math.round((hsla.h) * 360), Math.round(hsla.s * 100), Math.round(hsla.l * 100), Math.round(hsla.a * 100) / 100);
+            this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
+            this.hexText = this.service.hexText(rgba, this.cpAlphaChannel === 'hex8');
 
-        this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
-        this.hueSliderColor = 'rgb(' + hueRgba.r + ',' + hueRgba.g + ',' + hueRgba.b + ')';
+            this.alphaSliderColor = 'rgb(' + rgba.r + ',' + rgba.g + ',' + rgba.b + ')';
+            this.hueSliderColor = 'rgb(' + hueRgba.r + ',' + hueRgba.g + ',' + hueRgba.b + ')';
 
-        if (this.format === 0 && this.hsva.a < 1 && this.cpAlphaChannel === 'hex6') {
-            this.format++;
-        }
+            if (this.format === 0 && this.hsva.a < 1 && this.cpAlphaChannel === 'hex6') {
+                this.format++;
+            }
 
-        let lastOutput = this.outputColor;
-        this.outputColor = this.service.outputFormat(this.hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8');
-        this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
+            let lastOutput = this.outputColor;
+            this.outputColor = this.service.outputFormat(this.hsva, this.cpOutputFormat, this.cpAlphaChannel === 'hex8');
+            this.selectedColor = this.service.outputFormat(this.hsva, 'rgba', false);
 
-        this.slider = new SliderPosition((this.hsva.h) * this.sliderDimMax.h - 8, this.hsva.s * this.sliderDimMax.s - 8,
-            (1 - this.hsva.v) * this.sliderDimMax.v - 8, this.hsva.a * this.sliderDimMax.a - 8)
+            this.slider = new SliderPosition((this.hsva.h) * this.sliderDimMax.h - 8, this.hsva.s * this.sliderDimMax.s - 8,
+                (1 - this.hsva.v) * this.sliderDimMax.v - 8, this.hsva.a * this.sliderDimMax.a - 8)
 
-        if (emit && lastOutput !== this.outputColor) {
-            this.directiveInstance.colorChanged(this.outputColor);
+            if (emit && lastOutput !== this.outputColor) {
+                this.directiveInstance.colorChanged(this.outputColor);
+            }
         }
     }
 

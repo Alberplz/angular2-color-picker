@@ -2,12 +2,26 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
+        "lib": ["es2015", "dom"],
         "moduleResolution": "node",
         "sourceMap": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "lib": ["es2015", "dom"],
         "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true
+        "outDir": "./dist",
+        "suppressImplicitAnyIndexErrors": true,
+        "typeRoots": [
+          "./node_modules/@types"
+        ],
+        "types": [
+          "node"
+        ]
+    },
+    "exclude": [
+      "node_modules",
+      "dist"
+    ],
+     "angularCompilerOptions": {
+        "genDir": "."
     }
 }

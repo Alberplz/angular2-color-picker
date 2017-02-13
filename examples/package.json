@@ -23,6 +23,9 @@
         "zone.js": "^0.7.4"
     },
     "devDependencies": {
+        "@types/core-js": "^0.9.32",
+        "@types/jasmine": "^2.2.33",
+        "@types/node": "^6.0.38",
         "concurrently": "^3.0.0",
         "lite-server": "^2.2.2"
     }

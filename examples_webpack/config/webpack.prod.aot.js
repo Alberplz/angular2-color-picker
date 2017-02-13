@@ -1,15 +1,16 @@
+var path = require('path');
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
+var ngtools = require('@ngtools/webpack');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = webpackMerge(commonConfig, {
     entry: {
         'polyfills': './src/polyfills.ts',
-        'vendor': './src/vendor.ts',
         'app': './src/main.ts'
     },
     devtool: 'source-map',
@@ -17,17 +18,21 @@ module.exports = webpackMerge(commonConfig, {
         path: helpers.root('dist'),
         publicPath: '/',
         filename: '[name].[hash].js',
-        chunkFilename: '[id].[hash].chunk.js'
+        sourceMapFilename: '[name].css.map'
     },
     module: {
         rules: [
             {
                 test: /\.ts$/,
-                loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+                use: ['@ngtools/webpack']
             }
         ]
     },
     plugins: [
+        new ngtools.AotPlugin({
+          tsConfigPath: path.join(__dirname, '../tsconfig.json'),
+          entryModule: path.join(__dirname, '../src/app/app.module#AppModule')
+        }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({// https://github.com/angular/angular/issues/10618
             mangle: {
