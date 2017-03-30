@@ -1,6 +1,6 @@
 {
   "name": "angular4-color-picker",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Angular 4 Color Picker Directive, no dependences required.",
   "main": "index.js",
   "repository": {
