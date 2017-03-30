@@ -16,6 +16,6 @@ npm-debug.log
 
 nbproject/*
 
-lib/
-*.js
-*.js.map
+# lib/
+# *.js
+# *.js.map
