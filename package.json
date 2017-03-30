@@ -1,8 +1,12 @@
 {
-  "name": "angular2-color-picker",
-  "version": "1.3.1",
-  "description": "Angular 2 Color Picker Directive, no dependences required.",  
+  "name": "angular4-color-picker",
+  "version": "1.3.2",
+  "description": "Angular 4 Color Picker Directive, no dependences required.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rvmoldova/angular4-color-picker.git"
+  },
   "scripts": {
     "build": "gulp"
   },
@@ -30,9 +34,9 @@
     "typescript": "^2.1.5",
     "typings": "^2.1.0"
   },
-  "files":[
-      "lib/*",
-      "index.d.ts",
-      "index.ts"
+  "files": [
+    "lib/*",
+    "index.d.ts",
+    "index.ts"
   ]
 }
