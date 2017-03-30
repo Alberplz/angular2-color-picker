@@ -1,7 +1,7 @@
 {
-    "name": "angular2-color-picker-example",
+    "name": "angular4-color-picker-example",
     "version": "1.3.1",
-    "description": "Example for Angular2 Color Picker",
+    "description": "Example for Angular4 Color Picker",
     "scripts": {
         "start": "webpack-dev-server --inline --progress --port 8080",
         "test": "karma start",

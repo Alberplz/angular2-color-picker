@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {ColorPickerModule} from 'angular2-color-picker';
+import {ColorPickerModule} from 'angular4-color-picker';
 
 import {AppComponent} from './app.component';
 

@@ -56,7 +56,7 @@ var packages = {
 ```
 #Build
 ```bash
-git clone https://github.com/Alberplz/angular4-color-picker.git
+git clone https://github.com/rvmoldova/angular4-color-picker.git
 npm install
 cd agular2-color-picker
 npm run build
