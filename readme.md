@@ -57,7 +57,7 @@ var packages = {
         'angular2-color-picker': {main:'index.js', defaultExtension: 'js'}
     };
 ```
-#Build
+# Build
 ```bash
 git clone https://github.com/Alberplz/angular2-color-picker.git
 npm install
@@ -66,7 +66,7 @@ npm run build
 gulp copylib
 ```
 
-#Options
+# Options
 Default option is the first item.
 ```html
 [cpOutputFormat]="'hex', 'rgba', 'hsla'"
@@ -91,11 +91,11 @@ Default option is the first item.
 [cpAlphaChannel]="'hex6', 'hex8', 'disabled'"
 ```
 
-#Extra content
+# Extra content
 If you want to change precalculated images for color picker sliders, you can find a little script in this project:
 https://github.com/Alberplz/angular-colorpicker-directive
 
-#Tested in:
+# Tested in:
 * Chrome
 * Firefox
 * Microsoft Edge
@@ -103,5 +103,5 @@ https://github.com/Alberplz/angular-colorpicker-directive
 * Safari
 * Internet Explorer
 
-#For previous version of Angular:
+# For previous version of Angular:
 https://github.com/Alberplz/angular-colorpicker-directive
