@@ -1,7 +1,7 @@
-import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, Directive, Input, Output, ViewContainerRef, ElementRef, EventEmitter, OnInit, ViewChild, ComponentFactoryResolver} from '@angular/core';
 import {ColorPickerService} from './color-picker.service';
 import {Rgba, Hsla, Hsva, SliderPosition, SliderDimension} from './classes';
-import {NgModule, Compiler, ReflectiveInjector} from '@angular/core';
+import {NgModule, ReflectiveInjector} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 @Directive({
@@ -40,7 +40,10 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     private created: boolean;
     private ignoreChanges: boolean = false;
 
-    constructor(private compiler: Compiler, private vcRef: ViewContainerRef, private el: ElementRef, private service: ColorPickerService) {
+    constructor(private vcRef: ViewContainerRef,
+                private resolver: ComponentFactoryResolver,
+                private el: ElementRef,
+                private service: ColorPickerService) {
         this.created = false;
     }
 
@@ -79,18 +82,15 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     openDialog() {
         if (!this.created) {
             this.created = true;
-            this.compiler.compileModuleAndAllComponentsAsync(DynamicCpModule)
-                .then(factory => {
-                    const compFactory = factory.componentFactories.find(x => x.componentType === DialogComponent);
-                    const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
-                    const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
-                    cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
-                        this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
-                        this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText,
-                        this.cpOKButton, this.cpOKButtonClass, this.cpOKButtonText, this.cpHeight, this.cpWidth,
-                        this.cpIgnoredElements, this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel);
-                    this.dialog = cmpRef.instance;
-                });
+            let factory = this.resolver.resolveComponentFactory(DialogComponent);
+            const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
+            const cmpRef = this.vcRef.createComponent(factory, 0, injector, []);
+            cmpRef.instance.setDialog(this, this.el, this.colorPicker, this.cpPosition, this.cpPositionOffset,
+                this.cpPositionRelativeToArrow, this.cpOutputFormat, this.cpPresetLabel, this.cpPresetColors,
+                this.cpCancelButton, this.cpCancelButtonClass, this.cpCancelButtonText,
+                this.cpOKButton, this.cpOKButtonClass, this.cpOKButtonText, this.cpHeight, this.cpWidth,
+                this.cpIgnoredElements, this.cpDialogDisplay, this.cpSaveClickOutside, this.cpAlphaChannel);
+            this.dialog = cmpRef.instance;
         } else if (this.dialog) {
             this.dialog.openDialog(this.colorPicker);
         }
@@ -204,45 +204,45 @@ export class SliderDirective {
 })
 
 export class DialogComponent implements OnInit {
-    private hsva: Hsva;
-    private rgbaText: Rgba;
-    private hslaText: Hsla;
-    private hexText: string;
-    private outputColor: string;
-    private selectedColor: string;
-    private alphaSliderColor: string;
-    private hueSliderColor: string;
-    private slider: SliderPosition;
-    private sliderDimMax: SliderDimension;
-    private format: number;
-    private show: boolean;
-    private top: number;
-    private left: number;
-    private position: string;
-    private directiveInstance: any;
-    private initialColor: string;
-    private directiveElementRef: ElementRef;
+    public hsva: Hsva;
+    public rgbaText: Rgba;
+    public hslaText: Hsla;
+    public hexText: string;
+    public outputColor: string;
+    public selectedColor: string;
+    public alphaSliderColor: string;
+    public hueSliderColor: string;
+    public slider: SliderPosition;
+    public sliderDimMax: SliderDimension;
+    public format: number;
+    public show: boolean;
+    public top: number;
+    public left: number;
+    public position: string;
+    public directiveInstance: any;
+    public initialColor: string;
+    public directiveElementRef: ElementRef;
 
-    private listenerMouseDown: any;
-    private listenerResize: any;
+    public listenerMouseDown: any;
+    public listenerResize: any;
 
-    private cpPosition: string;
-    private cpPositionOffset: number;
-    private cpOutputFormat: string;
-    private cpPresetLabel: string;
-    private cpPresetColors: Array<string>;
-    private cpCancelButton: boolean;
-    private cpCancelButtonClass: string;
-    private cpCancelButtonText: string;
-    private cpOKButton: boolean;
-    private cpOKButtonClass: string;
-    private cpOKButtonText: string;
-    private cpHeight: number;
-    private cpWidth: number;
-    private cpIgnoredElements: any;
-    private cpDialogDisplay: string;
-    private cpSaveClickOutside: boolean;
-    private cpAlphaChannel: string;
+    public cpPosition: string;
+    public cpPositionOffset: number;
+    public cpOutputFormat: string;
+    public cpPresetLabel: string;
+    public cpPresetColors: Array<string>;
+    public cpCancelButton: boolean;
+    public cpCancelButtonClass: string;
+    public cpCancelButtonText: string;
+    public cpOKButton: boolean;
+    public cpOKButtonClass: string;
+    public cpOKButtonText: string;
+    public cpHeight: number;
+    public cpWidth: number;
+    public cpIgnoredElements: any;
+    public cpDialogDisplay: string;
+    public cpSaveClickOutside: boolean;
+    public cpAlphaChannel: string;
 
     private dialogArrowSize: number = 10;
     private dialogArrowOffset: number = 15;
@@ -534,6 +534,7 @@ export class DialogComponent implements OnInit {
 
 @NgModule({
     imports: [BrowserModule],
-    declarations: [DialogComponent, TextDirective, SliderDirective]
+    declarations: [DialogComponent, TextDirective, SliderDirective],
+    entryComponents: [DialogComponent]
 })
-class DynamicCpModule { };
+export class DynamicCpModule { };
