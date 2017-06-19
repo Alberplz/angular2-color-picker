@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import '../../public/css/styles.css';
-import {ColorPickerService, Rgba} from 'angular2-color-picker/lib';
+import {ColorPickerService, Rgba} from 'narik-angular-color-picker';
 
 export class Cmyk {
     constructor(public c: number, public m: number, public y: number, public k: number) { }
