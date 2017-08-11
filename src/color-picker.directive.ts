@@ -102,7 +102,7 @@ export class ColorPickerDirective implements OnInit, OnChanges {
     }
 
     changeInput(value: string) {
-        this.dialog.setColorFromString(value, true);
+        if (this.dialog) this.dialog.setColorFromString(value, true);
     }
 
     toggle(value: boolean) {
