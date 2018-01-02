@@ -1,13 +1,10 @@
-# angular2-color-picker
-Angular 2 Color Picker Directive/Component with no dependencies required.<br />
-This is a Color Picker Directive/Component for Angular 2.
-
-# Demo page
-http://alberplz.github.io/angular2-color-picker/examples/index.html
+# angular4-color-picker
+Angular 4 Color Picker Directive/Component with no dependencies required.<br />
+This is a Color Picker Directive/Component for Angular 4.
 
 # Installation
 ```bash
-npm i --save angular2-color-picker
+npm i --save angular4-color-picker
 ```
 
 # Usage
@@ -22,7 +19,7 @@ npm i --save angular2-color-picker
 
 * Add ColorPickerModule in your app.module.ts:
 ```javascript
-import {ColorPickerModule} from 'angular2-color-picker';
+import {ColorPickerModule} from 'angular4-color-picker';
 
 @NgModule({
     ...
@@ -33,7 +30,7 @@ import {ColorPickerModule} from 'angular2-color-picker';
 * Set color the variable. You can use ColorPickerService in your component if you want extra functions.
 ```javascript
 import {Component} from '@angular/core';
-import {ColorPickerService} from 'angular2-color-picker';
+import {ColorPickerService} from 'angular4-color-picker';
 
 @Component({
     selector: 'my-app',
@@ -50,16 +47,16 @@ export class AppComponent {
 ```javascript
 var map = {
         ...    
-        'angular2-color-picker': 'node_modules/angular2-color-picker'
+        'angular4-color-picker': 'node_modules/angular4-color-picker'
     };
 var packages = {
         ...
-        'angular2-color-picker': {main:'index.js', defaultExtension: 'js'}
+        'angular4-color-picker': {main:'index.js', defaultExtension: 'js'}
     };
 ```
 #Build
 ```bash
-git clone https://github.com/Alberplz/angular2-color-picker.git
+git clone https://github.com/rvmoldova/angular4-color-picker.git
 npm install
 cd agular2-color-picker
 npm run build
@@ -103,5 +100,5 @@ https://github.com/Alberplz/angular-colorpicker-directive
 * Safari
 * Internet Explorer
 
-#For previous version of Angular:
-https://github.com/Alberplz/angular-colorpicker-directive
+#For original author visit
+https://github.com/Alberplz/angular4-color-picker

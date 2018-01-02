@@ -1,10 +1,11 @@
 {
-    "name": "angular2-color-picker",
-    "version": "1.2.1",
+    "name": "angular4-color-picker",
+    "version": "1.4.0",
     "authors": [
-        "Alberto Pujante <alberplz@gmail.com>"
+        "Alberto Pujante <alberplz@gmail.com>",
+        "Russu Vadim <rv@labs.md>"
     ],
-    "description": "Color Picker Directive for Angular 2 with no dependencies required",
+    "description": "Color Picker Directive for Angular 4 with no dependencies required",
     "main": [
         "lib/color-picker.directive.ts"
     ],

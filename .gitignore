@@ -15,3 +15,7 @@ typings/*
 npm-debug.log
 
 nbproject/*
+
+# lib/
+# *.js
+# *.js.map
